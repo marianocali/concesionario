@@ -32,7 +32,7 @@ public class Auto implements Serializable {
     private Long precio;
 
     @ManyToOne
-    @JoinColumn(name = "id_co")
+    @JoinColumn(name = "idConcesionario")
     private Concesionario concesionario;
 
     @Temporal(TemporalType.DATE)
@@ -48,6 +48,16 @@ public class Auto implements Serializable {
         this.idAuto = idAuto;
     }
 
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+    
+    
+    
     public Auto() {
     }
 

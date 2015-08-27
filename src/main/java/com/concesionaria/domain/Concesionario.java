@@ -33,7 +33,7 @@ public class Concesionario implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_co")
+    @JoinColumn(name = "idConcesionario")
     public Set<Auto> getAutos() {
         return autos;
     }
