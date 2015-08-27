@@ -105,7 +105,7 @@ public class AutoDaoImpl implements AutoDao {
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            auto = em.find(Auto.class, auto.getId());
+            auto = em.find(Auto.class, auto.getIdAuto());
 
             em.remove(auto);
             em.getTransaction().commit();

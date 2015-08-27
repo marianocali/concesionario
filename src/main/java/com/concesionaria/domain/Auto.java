@@ -25,22 +25,28 @@ public class Auto implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idAuto;
 
     private String marca;
-
     private String modelo;
-
     private Long precio;
-    
+
     @ManyToOne
-    @JoinColumn(name="id_co")
+    @JoinColumn(name = "id_co")
     private Concesionario concesionario;
 
     @Temporal(TemporalType.DATE)
     private Calendar fechaVenta;
 
     private Integer anio;
+
+    public Long getIdAuto() {
+        return idAuto;
+    }
+
+    public void setIdAuto(Long idAuto) {
+        this.idAuto = idAuto;
+    }
 
     public Auto() {
     }
@@ -51,14 +57,6 @@ public class Auto implements Serializable {
         this.fechaVenta = fechaVenta;
         this.anio = anio;
         this.precio = precio;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getMarca() {
@@ -103,7 +101,7 @@ public class Auto implements Serializable {
 
     public void mostrarAuto(Auto auto) {
         System.out.println("");
-        System.out.println("Id:" + auto.getId());
+        System.out.println("Id:" + auto.getIdAuto());
         System.out.println("Marca:" + auto.getMarca());
         System.out.println("Modelo: " + auto.getModelo());
         System.out.println("Año: " + auto.getAnio());
