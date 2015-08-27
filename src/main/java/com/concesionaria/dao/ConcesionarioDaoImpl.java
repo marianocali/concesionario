@@ -67,7 +67,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
             em = emf.createEntityManager();
 
             em.getTransaction().begin();
-            concesionario = em.find(Concesionario.class, concesionario.getId());
+            concesionario = em.find(Concesionario.class, concesionario.getIdConcesionario());
             em.remove(concesionario);
             em.getTransaction().commit();
 

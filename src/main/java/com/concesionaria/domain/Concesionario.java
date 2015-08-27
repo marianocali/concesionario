@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Concesionario implements Serializable {
 
-    private Long id;
+    private Long idConcesionario;
     private String nombre;
     private String direccion;
 
@@ -44,12 +44,12 @@ public class Concesionario implements Serializable {
 
     @Id
     @GeneratedValue
-    public Long getId() {
-        return id;
+    public Long getIdConcesionario() {
+        return idConcesionario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdConcesionario(Long idConcesionario) {
+        this.idConcesionario = idConcesionario;
     }
 
     public String getNombre() {
@@ -70,7 +70,7 @@ public class Concesionario implements Serializable {
 
     public void mostrarConcesionario() {
         System.out.println(" ");
-        System.out.println(" id: " + this.getId());
+        System.out.println(" id: " + this.getIdConcesionario());
         System.out.println(" nombre: " + this.getNombre());
         System.out.println(" direccion: " + this.getDireccion());
     }
