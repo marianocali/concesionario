@@ -36,6 +36,6 @@ public interface AutoDao {
 
     public List<Auto> getAllAutos();
 
-
+    public List<Auto> findByConcesionarioId(Long idConcesionario);
 
 }

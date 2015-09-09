@@ -1,14 +1,12 @@
 package com.educacionit.jpa;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 import com.concesionaria.dao.AutoDao;
 import com.concesionaria.dao.AutoDaoImpl;
+import com.concesionaria.dao.ConcesionarioDao;
+import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
-import com.concesionaria.domain.AutoMarcaPrecioDto;
+import com.concesionaria.domain.Concesionario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -23,11 +21,11 @@ import org.junit.Test;
 public class AutoTest {
 
     private static Long idInsertado;    //se usa para saber que idSe inserto, modificarlo, borrarlo
-    private final String marca = "Ford";
-    private final String modelo = "Mondeo";
-    private final Integer anio = 2004;
+    private final String marca = "Honda";
+    private final String modelo = "City";
+    private final Integer anio = 2007;
     private final Calendar fechaVenta = Calendar.getInstance();
-    private Long precio = 160000l;
+    private final Long precio = 170000l;
 
     public Long getIdInsertado() {
         return idInsertado;
@@ -49,13 +47,17 @@ public class AutoTest {
         return autoDao;
     }
 
-//    @Test
+    @Test
     public void testGuardar() {
 
-        fechaVenta.set(2005, 6, 4);
+        fechaVenta.set(2007, 2, 6);
 
         Auto auto = new Auto(marca, modelo, fechaVenta, anio, precio);    //crea instancia del auto
-
+        ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
+        
+        Concesionario concesionario = concesionarioDao.findById(concesionarioDao.getMaxId());
+        
+        auto.setConcesionario(concesionario);
         getAutoDao().guardar(auto);             //lo guarda en BD
         setIdInsertado(getAutoDao().getMaxId());
 

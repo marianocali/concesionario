@@ -1,11 +1,16 @@
 package com.educacionit.jpa;
 
+import com.concesionaria.dao.AutoDao;
+import com.concesionaria.dao.AutoDaoImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.concesionaria.dao.ConcesionarioDao;
-import com.concesionaria.dao.ConcesionarioDaoImpl;
+import com.concesionaria.dao.DaoFactory;
+import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.service.ConcesionarioService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -22,8 +27,8 @@ public class ConcesionarioTest {
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
     public ConcesionarioTest() {
-        this.nombre = "Renault";
-        this.direccion = "Av Rivadavia 6152";
+        this.nombre = "Toyota";
+        this.direccion = "Av Montes de Oca 720";
     }
 
     public Long getIdInsertado() {
@@ -37,12 +42,12 @@ public class ConcesionarioTest {
     public ConcesionarioDao getConcesionarioDao() {
         ConcesionarioDao concesionarioDao = null;
         if (concesionarioDao == null) {
-            concesionarioDao = new ConcesionarioDaoImpl();
+            concesionarioDao = DaoFactory.getConcesionarioDao();
         }
         return concesionarioDao;
     }
 
-    @Test
+//    @Test
     public void testInsertar() {
         Log.log(Level.INFO, "testInsertar");
         Concesionario concesionario = new Concesionario();
@@ -59,7 +64,7 @@ public class ConcesionarioTest {
 
     }
 
-    @Test
+//    @Test
     public void testFindById() {
         Log.log(Level.INFO, "testFindById");
 
@@ -69,7 +74,7 @@ public class ConcesionarioTest {
         Assert.assertEquals(nombre, concesionario.getNombre());
     }
 
-    @Test
+//    @Test
     public void testModificar() {
         Log.info("testModificar");
 
@@ -88,7 +93,7 @@ public class ConcesionarioTest {
 
     }
 
-    @Test
+//    @Test
     public void testGetAllConcesionario() {
 
         Log.info("testGetAllConcesionario");
@@ -103,10 +108,10 @@ public class ConcesionarioTest {
 
     }
 
-    @Test
+//    @Test
     public void testGetMaxId() {
 
-        ConcesionarioDao concesionarioDao = new ConcesionarioDaoImpl();
+        ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
 
         Long maxId = concesionarioDao.getMaxId();
 
@@ -114,7 +119,7 @@ public class ConcesionarioTest {
         Assert.assertNotNull(maxId);
     }
 
-    @Test
+//    @Test
     public void testEliminar() {
         Log.log(Level.INFO, "testEliminar");
 
@@ -125,5 +130,13 @@ public class ConcesionarioTest {
         Assert.assertNull(concesionario);
 
     }
-
+    
+    @Test
+    public void testAgregarAutos(){
+        AutoDao autoDao = new AutoDaoImpl();
+        Auto auto1 = autoDao.buscarAutoPorId(2l);
+        ArrayList<Auto> autos = new ArrayList<Auto>();
+        autos.add(auto1);
+        ConcesionarioService.agregarAutos(2l, autos);
+    }
 }

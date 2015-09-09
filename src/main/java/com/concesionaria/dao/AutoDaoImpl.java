@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.concesionaria.dao;
 
 //import ar.com.educacionit.hibernate.manager.EducacionITSessionManager;
@@ -227,6 +223,32 @@ public class AutoDaoImpl implements AutoDao {
         }
 
         return id;
+    }
+
+    @Override
+    public List<Auto> findByConcesionarioId(Long idConcesionario) {
+
+        EntityManager em = emf.createEntityManager();
+        List<Auto> us = null;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select a from Auto a where a.idConcesionario like :param");
+            q.setParameter("param", "%" + idConcesionario + "%");
+            us = q.getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return us;
     }
 
 }

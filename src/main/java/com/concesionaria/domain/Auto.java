@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,8 +32,8 @@ public class Auto implements Serializable {
     private String modelo;
     private Long precio;
 
-    @ManyToOne
-    @JoinColumn(name = "idConcesionario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idConcesionario", nullable = true)
     private Concesionario concesionario;
 
     @Temporal(TemporalType.DATE)
