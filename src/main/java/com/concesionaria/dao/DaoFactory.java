@@ -15,4 +15,8 @@ public class DaoFactory {
     public static ConcesionarioDaoImpl getConcesionarioDao() {
         return ConcesionarioDaoImpl.getInstance();
     }
+    
+    public static AutoDaoImpl getAutoDao() {
+        return AutoDaoImpl.getInstance();
+    }
 }

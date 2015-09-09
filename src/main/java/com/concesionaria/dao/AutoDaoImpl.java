@@ -1,4 +1,3 @@
-
 package com.concesionaria.dao;
 
 //import ar.com.educacionit.hibernate.manager.EducacionITSessionManager;
@@ -18,6 +17,17 @@ import org.hibernate.Transaction;
 public class AutoDaoImpl implements AutoDao {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
+
+    private static AutoDaoImpl instance = new AutoDaoImpl();
+    
+    //Constructor privado para usar patron Singleton
+    private AutoDaoImpl(){
+        
+    }
+
+    public static AutoDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void guardar(Auto auto) {

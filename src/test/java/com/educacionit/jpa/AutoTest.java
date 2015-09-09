@@ -26,6 +26,8 @@ public class AutoTest {
     private final Integer anio = 2007;
     private final Calendar fechaVenta = Calendar.getInstance();
     private final Long precio = 170000l;
+    
+    private AutoDaoImpl autoDao = DaoFactory.getAutoDao();
 
     public Long getIdInsertado() {
         return idInsertado;
@@ -38,14 +40,7 @@ public class AutoTest {
     public AutoTest() {
     }
 
-    //Retorna una instancia del DAO
-    public AutoDao getAutoDao() {
-        AutoDao autoDao = null;
-        if (autoDao == null) {
-            autoDao = new AutoDaoImpl();
-        }
-        return autoDao;
-    }
+
 
     @Test
     public void testGuardar() {
@@ -58,10 +53,11 @@ public class AutoTest {
         Concesionario concesionario = concesionarioDao.findById(concesionarioDao.getMaxId());
         
         auto.setConcesionario(concesionario);
-        getAutoDao().guardar(auto);             //lo guarda en BD
-        setIdInsertado(getAutoDao().getMaxId());
+       
+        autoDao.guardar(auto);             //lo guarda en BD
+        setIdInsertado(autoDao.getMaxId());
 
-        Auto auto2 = getAutoDao().buscarAutoPorId(getIdInsertado()); //busca el auto insertado
+        Auto auto2 = autoDao.buscarAutoPorId(getIdInsertado()); //busca el auto insertado
 
         Assert.assertEquals(marca, auto2.getMarca());
         Assert.assertEquals(modelo, auto2.getModelo());
@@ -70,7 +66,8 @@ public class AutoTest {
 //    @Test
     public void testModificar() {
         Auto auto;
-        auto = getAutoDao().buscarAutoPorId(getAutoDao().getMaxId()); //obtiene el auto ingresao
+       
+        auto = autoDao.buscarAutoPorId(autoDao.getMaxId()); //obtiene el auto ingresao
 
         //le actualiza marca y modelo
         String nuevaMarca = "Fiat";
@@ -79,11 +76,11 @@ public class AutoTest {
         auto.setModelo(nuevoModelo);
 
         //lo salva en la BD
-        getAutoDao().modificar(auto);
+        autoDao.modificar(auto);
 
         //lo busca en la BD 
         Auto auto2;
-        auto2 = getAutoDao().buscarAutoPorId(getAutoDao().getMaxId());
+        auto2 = autoDao.buscarAutoPorId(autoDao.getMaxId());
 
         //compara para ver si se actualizó
         Assert.assertEquals(auto2.getMarca(), nuevaMarca);
@@ -95,7 +92,7 @@ public class AutoTest {
         System.out.println(" testGetAllAutos ");
 
         List<Auto> listaAutos = new ArrayList<Auto>();
-        listaAutos = getAutoDao().getAllAutos();
+        listaAutos = autoDao.getAllAutos();
 
         for (Auto auto : listaAutos) {
             auto.mostrarAuto(auto);
@@ -110,16 +107,16 @@ public class AutoTest {
 
 //    @Test
     public void testDelete() {
-        System.out.println("getAutoDao().getMaxId(): " + getAutoDao().getMaxId());
-        Long nroRegistrosInicio = getAutoDao().getMaxId();
+        System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
+        Long nroRegistrosInicio = autoDao.getMaxId();
         //elimina el auto ingresado
-        getAutoDao().eliminarAutoPorId(getAutoDao().getMaxId());
+        autoDao.eliminarAutoPorId(autoDao.getMaxId());
 
         //busca el auto con el idEliminado, debe retornar null
-        Auto auto = getAutoDao().buscarAutoPorId(getIdInsertado());
+        Auto auto = autoDao.buscarAutoPorId(getIdInsertado());
 
-        Long nroRegistrosFinal = getAutoDao().getMaxId();
-        System.out.println("getAutoDao().getMaxId(): " + getAutoDao().getMaxId());
+        Long nroRegistrosFinal = autoDao.getMaxId();
+        System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
 
         Assert.assertNull(auto);
         Assert.assertTrue(nroRegistrosInicio > nroRegistrosFinal);

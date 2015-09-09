@@ -16,6 +16,12 @@ import java.util.ArrayList;
  * @author mariano
  */
 public class ConcesionarioService {
+    
+    /**
+     *  agregar los autos que están contenidos en el ArrayList de autos al concesionario identificado por idConcesionario
+     * @param idConcesionario
+     * @param autos 
+     */
     public static void agregarAutos(Long idConcesionario, ArrayList<Auto> autos){
         ConcesionarioDaoImpl.agregarAutos(idConcesionario, autos);
     }

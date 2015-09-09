@@ -8,3 +8,7 @@ En ConcesionarioDaoImpl se agrega el metodo estatico agregarAutos(Long idConcesi
 Se implementa el patrón Singleton para ConcesionarioDaoImpl.
 Se agrega el test testAgregarAutos.
 En Auto se pone Concesionario (fetch = FetchType.LAZY)
+
+Se agrega el metodo getAutoDao en DaoFactory
+Se elimina el getAutoDao del test y se usa autoDao usando el DaoFactory
+se implementa getInstance para usar AutoDao como Singleton

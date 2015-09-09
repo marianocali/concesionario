@@ -7,6 +7,7 @@ package com.concesionaria.app;
 
 import com.concesionaria.dao.AutoDao;
 import com.concesionaria.dao.AutoDaoImpl;
+import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class ApplicationAutos {
     }
 
     public static void probarAuto() {
-        AutoDao autoDao = new AutoDaoImpl();
+        AutoDao autoDao = DaoFactory.getAutoDao();
         try {
 //            Auto auto1 = new Auto("Renault", "Megane");
 //            Auto auto2 = new Auto("Toyota", "Corolla");
@@ -36,7 +37,7 @@ public class ApplicationAutos {
             String modelo = "c";
             List<Auto> autos = new ArrayList<Auto>();
             autos = autoDao.buscarPorMarcaYModelo(marca, modelo);
-            System.out.println("autos obtenidos: " + autos.size());    
+            System.out.println("autos obtenidos: " + autos.size());
             for (Auto auto : autos) {
                 mostrarAuto(auto);
             }

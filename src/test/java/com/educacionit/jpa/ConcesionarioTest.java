@@ -1,7 +1,6 @@
 package com.educacionit.jpa;
 
 import com.concesionaria.dao.AutoDao;
-import com.concesionaria.dao.AutoDaoImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -133,10 +132,13 @@ public class ConcesionarioTest {
     
     @Test
     public void testAgregarAutos(){
-        AutoDao autoDao = new AutoDaoImpl();
+        
+        AutoDao autoDao = DaoFactory.getAutoDao();
         Auto auto1 = autoDao.buscarAutoPorId(2l);
         ArrayList<Auto> autos = new ArrayList<Auto>();
         autos.add(auto1);
         ConcesionarioService.agregarAutos(2l, autos);
     }
+    
+    
 }
