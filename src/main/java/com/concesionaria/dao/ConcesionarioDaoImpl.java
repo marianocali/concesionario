@@ -23,19 +23,17 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
-    
+
     private static ConcesionarioDaoImpl instance = new ConcesionarioDaoImpl();
-    
+
     //constructor privado para usar Singleton
-    private ConcesionarioDaoImpl(){
-        
+    private ConcesionarioDaoImpl() {
+
     }
-    
-    public static ConcesionarioDaoImpl getInstance(){
+
+    public static ConcesionarioDaoImpl getInstance() {
         return instance;
     }
-    
-    
 
     @Override
     public void agregar(Concesionario concesionario) {
@@ -188,4 +186,39 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         }
     }
 
+    /**
+     * Retorna un concesionario junto con sus autos
+     *
+     * @param idConcesionario
+     * @return
+     */
+    @Override
+    public Concesionario informarAutos(Long idConcesionario) {
+
+        Log.info("informarAutos");
+
+        EntityManager em = null;
+        Concesionario concesionario = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createQuery("select c from Concesionario c join c.autos"
+                    + " where c.idConcesionario like :param");
+            query.setParameter("param", idConcesionario );
+
+            concesionario = (Concesionario) query.getSingleResult();
+
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return concesionario;
+    }
+
+//    String query1="select u from Usuario u join u.auto ";
 }

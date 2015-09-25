@@ -4,6 +4,7 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.concesionaria.domain.Auto</class>
+		<class>com.concesionaria.domain.Concesionario</class>
 
 		<properties>
 		<property name="hibernate.show_sql" value="true" />

@@ -6,8 +6,6 @@
 package com.concesionaria.dao;
 
 import com.concesionaria.domain.Auto;
-import com.concesionaria.domain.AutoMarcaPrecioDto;
-import java.util.Calendar;
 import java.util.List;
 
 /**

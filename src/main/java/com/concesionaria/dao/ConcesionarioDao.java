@@ -26,4 +26,6 @@ public interface ConcesionarioDao {
     public List<Concesionario> getAllConcesionarios();
 
     public Long getMaxId();
+    
+    public Concesionario informarAutos(Long idConcesionario);
 }

@@ -75,4 +75,13 @@ public class Concesionario implements Serializable {
         System.out.println(" direccion: " + this.getDireccion());
     }
 
+    @Override
+    public String toString() {
+        return "Concesionario{" + "idConcesionario=" + idConcesionario 
+                + ", nombre=" + nombre 
+                + ", direccion=" + direccion ; 
+    }
+    
+    
+
 }

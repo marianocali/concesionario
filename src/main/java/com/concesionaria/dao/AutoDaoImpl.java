@@ -235,16 +235,17 @@ public class AutoDaoImpl implements AutoDao {
         return id;
     }
 
+    //Obtiene una lista de todos los Autos de un concesionario dado.
     @Override
     public List<Auto> findByConcesionarioId(Long idConcesionario) {
 
         EntityManager em = emf.createEntityManager();
-        List<Auto> us = null;
+        List<Auto> autos = null;
         try {
             em.getTransaction().begin();
             Query q = em.createQuery("select a from Auto a where a.idConcesionario like :param");
             q.setParameter("param", "%" + idConcesionario + "%");
-            us = q.getResultList();
+            autos = q.getResultList();
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -258,7 +259,7 @@ public class AutoDaoImpl implements AutoDao {
 
             }
         }
-        return us;
+        return autos;
     }
 
 }

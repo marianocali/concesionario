@@ -12,3 +12,11 @@ En Auto se pone Concesionario (fetch = FetchType.LAZY)
 Se agrega el metodo getAutoDao en DaoFactory
 Se elimina el getAutoDao del test y se usa autoDao usando el DaoFactory
 se implementa getInstance para usar AutoDao como Singleton
+
+
+25-09-2015
+En ConcesionarioService se agrega el metodo informarAutos que informa los datos del concesionario y los datos de sus autos.
+Se agrega la invocación a través del daoFactory.
+Concesionario se agrega el toString, NOTA: no se debe mostrar los autos en el toString porque sino hace un bucle infinito
+Se agrega test de informarAutos.
+ConcesionarioDaoImpl se agrega el metodo informarAutos

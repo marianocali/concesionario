@@ -130,7 +130,7 @@ public class ConcesionarioTest {
 
     }
     
-    @Test
+//    @Test
     public void testAgregarAutos(){
         
         AutoDao autoDao = DaoFactory.getAutoDao();
@@ -140,5 +140,11 @@ public class ConcesionarioTest {
         ConcesionarioService.agregarAutos(2l, autos);
     }
     
+    @Test
+    public void informarAutos(){
+        Log.log(Level.INFO, "test informarAutos");
+        Long idConcesionario = 4l;
+        ConcesionarioService.informarAutos(idConcesionario);
+    }
     
 }

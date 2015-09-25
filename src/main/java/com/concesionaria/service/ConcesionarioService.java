@@ -6,9 +6,10 @@
 package com.concesionaria.service;
 
 import com.concesionaria.dao.AutoDao;
-import com.concesionaria.dao.AutoDaoImpl;
 import com.concesionaria.dao.ConcesionarioDaoImpl;
+import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
+import com.concesionaria.domain.Concesionario;
 import java.util.ArrayList;
 
 /**
@@ -16,23 +17,36 @@ import java.util.ArrayList;
  * @author mariano
  */
 public class ConcesionarioService {
-    
+
     /**
-     *  agregar los autos que están contenidos en el ArrayList de autos al concesionario identificado por idConcesionario
+     * agregar los autos que están contenidos en el ArrayList de autos al
+     * concesionario identificado por idConcesionario
+     *
      * @param idConcesionario
-     * @param autos 
+     * @param autos
      */
-    public static void agregarAutos(Long idConcesionario, ArrayList<Auto> autos){
+    public static void agregarAutos(Long idConcesionario, ArrayList<Auto> autos) {
         ConcesionarioDaoImpl.agregarAutos(idConcesionario, autos);
     }
-    
-//    public static void informarAutos(Long idConcesionario){
-//        AutoDao autoDao = new AutoDaoImpl();
-//        ConcesionarioDaoImpl.
-//        ConcesionarioDao autoDao = new AutoDaoImautopl();
-//        ArrayList<Auto> autos = autoDao.
-//        Concesioario concesionario =        
-//        ConcesionarioDaoImpl.
-//                
-//    }
+
+    /**
+     * Informar los datos del concesionario junto con un listado de los autos
+     * que contiene. Deberá informar el valor de todos los campos de los autos.
+     *
+     * @param idConcesionario
+     */
+    public static void informarAutos(Long idConcesionario) {
+
+        Concesionario concesionario = DaoFactory.getConcesionarioDao().informarAutos(idConcesionario);
+
+        System.out.println("\n\n" + "Datos del Concesionario");
+        System.out.println(concesionario.toString());
+        System.out.println("Datos de los autos");
+        for (Auto auto : concesionario.getAutos()) {
+            auto.mostrarAuto(auto);
+        }
+
+        System.out.println("\n\n");
+    }
+
 }

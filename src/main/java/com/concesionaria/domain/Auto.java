@@ -1,4 +1,3 @@
-
 package com.concesionaria.domain;
 
 import java.io.Serializable;
@@ -52,9 +51,7 @@ public class Auto implements Serializable {
     public void setConcesionario(Concesionario concesionario) {
         this.concesionario = concesionario;
     }
-    
-    
-    
+
     public Auto() {
     }
 
@@ -115,6 +112,11 @@ public class Auto implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMMM/yyyy hh:mm:ss");
         System.out.println("Fecha Venta: " + sdf.format(auto.getFechaVenta().getTime()));
         System.out.println("Precio : " + auto.getPrecio());
+    }
+
+    @Override
+    public String toString() {
+        return "Auto{" + "idAuto=" + idAuto + ", marca=" + marca + ", modelo=" + modelo + ", precio=" + precio + ", concesionario=" + concesionario + ", fechaVenta=" + fechaVenta + ", anio=" + anio + '}';
     }
 
 }
