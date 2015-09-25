@@ -28,4 +28,6 @@ public interface ConcesionarioDao {
     public Long getMaxId();
     
     public Concesionario informarAutos(Long idConcesionario);
+    
+    public void eliminar(Long idConcesionario);
 }

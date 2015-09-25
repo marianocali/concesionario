@@ -35,5 +35,7 @@ public interface AutoDao {
     public List<Auto> getAllAutos();
 
     public List<Auto> findByConcesionarioId(Long idConcesionario);
+    
+    public List<Auto> informarAutosMayorAPrecio(Double precio);
 
 }

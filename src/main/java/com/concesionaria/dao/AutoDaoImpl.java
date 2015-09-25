@@ -19,10 +19,10 @@ public class AutoDaoImpl implements AutoDao {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
 
     private static AutoDaoImpl instance = new AutoDaoImpl();
-    
+
     //Constructor privado para usar patron Singleton
-    private AutoDaoImpl(){
-        
+    private AutoDaoImpl() {
+
     }
 
     public static AutoDaoImpl getInstance() {
@@ -261,5 +261,38 @@ public class AutoDaoImpl implements AutoDao {
         }
         return autos;
     }
+    
+    /**
+     * Retorna todos los autos cuyo precio supera el precio minimo indicado
+     * @param precio
+     * @return 
+     */
+    @Override
+    public List<Auto> informarAutosMayorAPrecio(Double precioMinimo) {
 
+        EntityManager em = emf.createEntityManager();
+        List<Auto> listaAutos = null;
+        try {
+            em.getTransaction().begin();
+            long precioLong = Math.round(precioMinimo);
+            
+            Query q = em.createQuery("select a from Auto a where a.precio > :param");
+            q.setParameter("param",  precioLong );
+            listaAutos = q.getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return listaAutos;
+
+    }
 }

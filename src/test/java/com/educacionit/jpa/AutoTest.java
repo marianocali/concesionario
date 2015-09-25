@@ -1,15 +1,16 @@
 package com.educacionit.jpa;
 
-
 import com.concesionaria.dao.AutoDao;
 import com.concesionaria.dao.AutoDaoImpl;
 import com.concesionaria.dao.ConcesionarioDao;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.service.AutoService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,12 +22,14 @@ import org.junit.Test;
 public class AutoTest {
 
     private static Long idInsertado;    //se usa para saber que idSe inserto, modificarlo, borrarlo
-    private final String marca = "Honda";
-    private final String modelo = "City";
-    private final Integer anio = 2007;
+    private final String marca = "Fiat";
+    private final String modelo = "Palio";
+    private final Integer anio = 2013;
     private final Calendar fechaVenta = Calendar.getInstance();
-    private final Long precio = 170000l;
+    private final Long precio = 120000l;
     
+    private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
+
     private AutoDaoImpl autoDao = DaoFactory.getAutoDao();
 
     public Long getIdInsertado() {
@@ -40,8 +43,6 @@ public class AutoTest {
     public AutoTest() {
     }
 
-
-
     @Test
     public void testGuardar() {
 
@@ -49,11 +50,11 @@ public class AutoTest {
 
         Auto auto = new Auto(marca, modelo, fechaVenta, anio, precio);    //crea instancia del auto
         ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
-        
+
         Concesionario concesionario = concesionarioDao.findById(concesionarioDao.getMaxId());
-        
+
         auto.setConcesionario(concesionario);
-       
+
         autoDao.guardar(auto);             //lo guarda en BD
         setIdInsertado(autoDao.getMaxId());
 
@@ -66,7 +67,7 @@ public class AutoTest {
 //    @Test
     public void testModificar() {
         Auto auto;
-       
+
         auto = autoDao.buscarAutoPorId(autoDao.getMaxId()); //obtiene el auto ingresao
 
         //le actualiza marca y modelo
@@ -121,5 +122,15 @@ public class AutoTest {
         Assert.assertNull(auto);
         Assert.assertTrue(nroRegistrosInicio > nroRegistrosFinal);
 
+    }
+
+//    @Test
+    public void testInformarAutosMayorAPrecio() {
+        Log.log(Level.INFO, "testInformarAutosMayorAPrecio");
+
+        Double precioMinimo = 150000d;
+
+        AutoService.informarAutosMayorAPrecio(precioMinimo); 
+        
     }
 }

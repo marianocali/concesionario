@@ -204,7 +204,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
             em.getTransaction().begin();
             Query query = em.createQuery("select c from Concesionario c join c.autos"
                     + " where c.idConcesionario like :param");
-            query.setParameter("param", idConcesionario );
+            query.setParameter("param", idConcesionario);
 
             concesionario = (Concesionario) query.getSingleResult();
 
@@ -220,5 +220,23 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         return concesionario;
     }
 
-//    String query1="select u from Usuario u join u.auto ";
+    @Override
+    public void eliminar(Long idConcesionario) {
+
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            Concesionario concesionario = null;
+            
+            em.getTransaction().begin();
+            concesionario = em.find(Concesionario.class, idConcesionario);
+            em.remove(concesionario);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 }

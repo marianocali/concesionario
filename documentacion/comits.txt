@@ -15,8 +15,14 @@ se implementa getInstance para usar AutoDao como Singleton
 
 
 25-09-2015
-En ConcesionarioService se agrega el metodo informarAutos que informa los datos del concesionario y los datos de sus autos.
+En ConcesionarioService 
+    se agrega el metodo informarAutos que informa los datos del concesionario y los datos de sus autos.
+    se agrega el método estatico eliminar 
 Se agrega la invocación a través del daoFactory.
 Concesionario se agrega el toString, NOTA: no se debe mostrar los autos en el toString porque sino hace un bucle infinito
 Se agrega test de informarAutos.
-ConcesionarioDaoImpl se agrega el metodo informarAutos
+ConcesionarioDaoImpl 
+    se agrega el metodo informarAutos
+    se agrega el método eliminar que recibe un idConcesionario
+AutoService se agrega la clase con el metodo informarAutosMayorAPrecio
+AutoDaoImpl se agrega el método informarAutosMayorAPrecio

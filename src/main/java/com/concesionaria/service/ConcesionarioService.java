@@ -5,7 +5,6 @@
  */
 package com.concesionaria.service;
 
-import com.concesionaria.dao.AutoDao;
 import com.concesionaria.dao.ConcesionarioDaoImpl;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
@@ -47,6 +46,10 @@ public class ConcesionarioService {
         }
 
         System.out.println("\n\n");
+    }
+    
+    public static void eliminar(Long idConcesionario){
+        DaoFactory.getConcesionarioDao().eliminar(idConcesionario);
     }
 
 }

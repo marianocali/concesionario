@@ -100,7 +100,7 @@ public class ConcesionarioTest {
         List<Concesionario> listaConcesionarios;
 
         listaConcesionarios = getConcesionarioDao().getAllConcesionarios();
-        
+
         for (Concesionario concesionario : listaConcesionarios) {
             concesionario.mostrarConcesionario();
         }
@@ -129,22 +129,34 @@ public class ConcesionarioTest {
         Assert.assertNull(concesionario);
 
     }
-    
+
 //    @Test
-    public void testAgregarAutos(){
-        
+    public void testAgregarAutos() {
+
         AutoDao autoDao = DaoFactory.getAutoDao();
         Auto auto1 = autoDao.buscarAutoPorId(2l);
         ArrayList<Auto> autos = new ArrayList<Auto>();
         autos.add(auto1);
         ConcesionarioService.agregarAutos(2l, autos);
     }
-    
-    @Test
-    public void informarAutos(){
+
+//    @Test
+    public void informarAutos() {
         Log.log(Level.INFO, "test informarAutos");
         Long idConcesionario = 4l;
         ConcesionarioService.informarAutos(idConcesionario);
     }
     
+    @Test
+    public void testEliminarConcesionarioYSusAutos() {
+        Log.log(Level.INFO, "testEliminarConcesionarioYSusAutos");
+        Concesionario concesionario;
+        Long idConcesionario = 3l;
+        
+        ConcesionarioService.eliminar(idConcesionario);
+        
+        concesionario = DaoFactory.getConcesionarioDao().findById(idConcesionario);
+        Assert.assertNull(concesionario);
+
+    }
 }
