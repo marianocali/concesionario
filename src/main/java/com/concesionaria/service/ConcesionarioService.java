@@ -38,17 +38,21 @@ public class ConcesionarioService {
 
         Concesionario concesionario = DaoFactory.getConcesionarioDao().informarAutos(idConcesionario);
 
-        System.out.println("\n\n" + "Datos del Concesionario");
-        System.out.println(concesionario.toString());
-        System.out.println("Datos de los autos");
-        for (Auto auto : concesionario.getAutos()) {
-            auto.mostrarAuto(auto);
+        if (concesionario != null) {
+            System.out.println("\n\n" + "Datos del Concesionario");
+            System.out.println(concesionario.toString());
+            System.out.println("Datos de los autos");
+            for (Auto auto : concesionario.getAutos()) {
+                auto.mostrarAuto(auto);
+            }
+        }else{
+            System.out.println("\n\n" + "No se encontró el concesionario + " + idConcesionario);
         }
 
         System.out.println("\n\n");
     }
-    
-    public static void eliminar(Long idConcesionario){
+
+    public static void eliminar(Long idConcesionario) {
         DaoFactory.getConcesionarioDao().eliminar(idConcesionario);
     }
 

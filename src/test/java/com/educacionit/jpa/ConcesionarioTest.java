@@ -1,6 +1,7 @@
 package com.educacionit.jpa;
 
 import com.concesionaria.dao.AutoDao;
+import com.concesionaria.dao.AutoDaoImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,6 +11,7 @@ import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
 import com.concesionaria.service.ConcesionarioService;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -20,6 +22,7 @@ import java.util.logging.Level;
 public class ConcesionarioTest {
 
     private static Long idInsertado = null;
+    private static Long idAutoInsertado = null;
 
     private final String direccion;
     private final String nombre;
@@ -38,6 +41,14 @@ public class ConcesionarioTest {
         idInsertado = id;
     }
 
+    public Long getIdAutoInsertado() {
+        return idAutoInsertado;
+    }
+
+    public void setIdAutoInsertado(Long idAutoInsertado) {
+        this.idAutoInsertado = idAutoInsertado;
+    }
+
     public ConcesionarioDao getConcesionarioDao() {
         ConcesionarioDao concesionarioDao = null;
         if (concesionarioDao == null) {
@@ -46,7 +57,7 @@ public class ConcesionarioTest {
         return concesionarioDao;
     }
 
-//    @Test
+    @Test
     public void testInsertar() {
         Log.log(Level.INFO, "testInsertar");
         Concesionario concesionario = new Concesionario();
@@ -63,7 +74,7 @@ public class ConcesionarioTest {
 
     }
 
-//    @Test
+    @Test
     public void testFindById() {
         Log.log(Level.INFO, "testFindById");
 
@@ -73,7 +84,7 @@ public class ConcesionarioTest {
         Assert.assertEquals(nombre, concesionario.getNombre());
     }
 
-//    @Test
+    @Test
     public void testModificar() {
         Log.info("testModificar");
 
@@ -92,7 +103,7 @@ public class ConcesionarioTest {
 
     }
 
-//    @Test
+    @Test
     public void testGetAllConcesionario() {
 
         Log.info("testGetAllConcesionario");
@@ -107,7 +118,7 @@ public class ConcesionarioTest {
 
     }
 
-//    @Test
+    @Test
     public void testGetMaxId() {
 
         ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
@@ -118,7 +129,46 @@ public class ConcesionarioTest {
         Assert.assertNotNull(maxId);
     }
 
-//    @Test
+    @Test
+    public void testAgregarAutos() {
+
+        String modelo = "Honda";
+        String marca = "Accord";
+        Integer anio = 2008;
+        Calendar fechaVenta = Calendar.getInstance();
+        Long precio = 250000l;
+
+        //Primero se agrega un auto nuevo
+        fechaVenta.set(2012, 12, 20);
+
+        Auto auto = new Auto(marca, modelo, fechaVenta, anio, precio);    //crea instancia del auto
+        ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
+
+        Concesionario concesionario = concesionarioDao.findById(concesionarioDao.getMaxId());
+
+        auto.setConcesionario(concesionario);
+        AutoDaoImpl autoDao = DaoFactory.getAutoDao();
+        autoDao.guardar(auto);             //lo guarda en BD
+
+        setIdAutoInsertado(autoDao.getMaxId());
+
+        Auto autoNuevo = autoDao.buscarAutoPorId(getIdAutoInsertado()); //busca el auto insertado
+
+        ArrayList<Auto> autos = new ArrayList<Auto>();
+
+        autos.add(autoNuevo);
+
+        ConcesionarioService.agregarAutos(getIdInsertado(), autos);
+    }
+
+    @Test
+    public void informarAutos() {
+        Log.log(Level.INFO, "test informarAutos");
+        Long idConcesionario = getIdInsertado();
+        ConcesionarioService.informarAutos(idConcesionario);
+    }
+
+//        @Test
     public void testEliminar() {
         Log.log(Level.INFO, "testEliminar");
 
@@ -130,32 +180,15 @@ public class ConcesionarioTest {
 
     }
 
-//    @Test
-    public void testAgregarAutos() {
-
-        AutoDao autoDao = DaoFactory.getAutoDao();
-        Auto auto1 = autoDao.buscarAutoPorId(2l);
-        ArrayList<Auto> autos = new ArrayList<Auto>();
-        autos.add(auto1);
-        ConcesionarioService.agregarAutos(2l, autos);
-    }
-
-//    @Test
-    public void informarAutos() {
-        Log.log(Level.INFO, "test informarAutos");
-        Long idConcesionario = 4l;
-        ConcesionarioService.informarAutos(idConcesionario);
-    }
-    
     @Test
     public void testEliminarConcesionarioYSusAutos() {
         Log.log(Level.INFO, "testEliminarConcesionarioYSusAutos");
         Concesionario concesionario;
-        Long idConcesionario = 3l;
-        
+        Long idConcesionario = getIdInsertado();
+
         ConcesionarioService.eliminar(idConcesionario);
-        
-        concesionario = DaoFactory.getConcesionarioDao().findById(idConcesionario);
+
+        concesionario = DaoFactory.getConcesionarioDao().findById(getIdInsertado());
         Assert.assertNull(concesionario);
 
     }

@@ -26,3 +26,8 @@ ConcesionarioDaoImpl
     se agrega el método eliminar que recibe un idConcesionario
 AutoService se agrega la clase con el metodo informarAutosMayorAPrecio
 AutoDaoImpl se agrega el método informarAutosMayorAPrecio
+
+18-07-2016
+Se agrega la clase Persona, Cliente, Vendedor en el dominio.
+Se agregan los Daos VendedorDao, ClienteDao, ClienteDaoImpl, PersonaDao,
+Se agrega el test ClienteDaoTest

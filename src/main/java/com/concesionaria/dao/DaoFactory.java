@@ -19,4 +19,8 @@ public class DaoFactory {
     public static AutoDaoImpl getAutoDao() {
         return AutoDaoImpl.getInstance();
     }
+    
+    public static ClienteDaoImpl getClienteDao(){
+        return ClienteDaoImpl.getInstance();
+    }
 }

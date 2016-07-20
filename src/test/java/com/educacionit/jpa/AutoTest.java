@@ -64,7 +64,7 @@ public class AutoTest {
         Assert.assertEquals(modelo, auto2.getModelo());
     }
 
-//    @Test
+    @Test
     public void testModificar() {
         Auto auto;
 
@@ -88,7 +88,7 @@ public class AutoTest {
         Assert.assertEquals(auto2.getModelo(), nuevoModelo);
     }
 
-//    @Test
+    @Test
     public void testGetAllAutos() {
         System.out.println(" testGetAllAutos ");
 
@@ -101,12 +101,12 @@ public class AutoTest {
 
     }
 
-//    @Test
+    @Test
     public void testFind() {
         Assert.assertTrue(true);
     }
 
-//    @Test
+    @Test
     public void testDelete() {
         System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
         Long nroRegistrosInicio = autoDao.getMaxId();
