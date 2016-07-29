@@ -11,8 +11,12 @@ import com.concesionaria.domain.Persona;
  *
  * @author mariano
  */
-public interface PersonaDao <P>{
+public interface PersonaDao {
     
-//    public void guardar(P persona);
+    public void guardar(Persona persona);
+
+    public Persona buscarPersonaPorId(Long id);
+
+    public void modificar(Persona persona);
     
 }
