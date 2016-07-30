@@ -16,8 +16,9 @@ import org.junit.Test;
  * @author mariano
  */
 public class ClienteDaoTest {
+
     private static Long idInsertado;    //se usa para saber que idSe inserto, modificarlo, borrarlo
-    
+
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
     private ClienteDaoImpl clienteDao = DaoFactory.getClienteDao();
@@ -30,15 +31,23 @@ public class ClienteDaoTest {
         idInsertado = id;
     }
 
-//    @Test
+    @Test
     public void testGuardar() {
 
-        Cliente cliente = new Cliente("Juan", "Gonzalez", "Jovellanos 125 ", "RESIDENCIAL");    
-        
+        Cliente cliente = new Cliente("Juan", "Gonzalez", "Pichincha  1031", "RESIDENCIAL");
+
         clienteDao.guardar(cliente);             //lo guarda en BD
         setIdInsertado(cliente.getIdPersona());
 
-        Assert.assertEquals(getIdInsertado(), Long.valueOf(clienteDao.findById(idInsertado).getIdCliente()) );
+        Assert.assertEquals(getIdInsertado(), Long.valueOf(clienteDao.findById(idInsertado).getIdPersona()));
     }
-    
+
+    @Test
+    public void testFindById() {
+
+        Cliente cliente = clienteDao.findById(getIdInsertado());
+
+        Assert.assertEquals(getIdInsertado(), Long.valueOf(cliente.getIdPersona())); //se agrega el Long.valueOf porque sino no compila el test
+    }
+
 }

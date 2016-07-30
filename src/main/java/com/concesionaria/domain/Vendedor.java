@@ -16,17 +16,17 @@ import javax.persistence.Table;
  * @author mariano
  */
 @Entity
-@Table(name="Vendedores")
-@PrimaryKeyJoinColumn(name ="id_vendedor")
-public class Vendedor extends Persona{
-    
-    @Column(name="fecha_ingreso")
+@Table(name = "VENDEDORES")
+@PrimaryKeyJoinColumn(name = "ID_PERSONA")
+public class Vendedor extends Persona {
+
+    @Column(name = "FECHA_INGRESO")
     private Date fechaIngreso;
-    
-    @Column(name="LEGAJO")
+
+    @Column(name = "LEGAJO")
     private String legajo;
-    
-    @Column(name="SUELDO")
+
+    @Column(name = "SUELDO")
     private double sueldo;
 
     public Date getFechaIngreso() {
@@ -52,9 +52,9 @@ public class Vendedor extends Persona{
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
-    
-    public Vendedor(){
-        
+
+    public Vendedor() {
+
     }
 
     public Vendedor(String nombre, String apellido, String direccion, Date fechaIngreso, String legajo, double sueldo) {
@@ -63,6 +63,5 @@ public class Vendedor extends Persona{
         this.legajo = legajo;
         this.sueldo = sueldo;
     }
-    
-    
+
 }

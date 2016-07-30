@@ -5,7 +5,6 @@
  */
 package com.concesionaria.dao;
 
-import com.concesionaria.domain.Cliente;
 import com.concesionaria.domain.Persona;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,28 +14,28 @@ import javax.persistence.Persistence;
  *
  * @author mariano
  */
-public class ClienteDaoImpl implements ClienteDao {
+public class PersonaDaoImpl implements PersonaDao {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
 
-    private static ClienteDaoImpl instance = new ClienteDaoImpl();
-
-    //Constructor privado para usar patron Singleton
-    private ClienteDaoImpl() {
-
+    private static PersonaDaoImpl instance = new PersonaDaoImpl();
+    
+    private PersonaDaoImpl(){
+        //constructor privado para usar Singleton
     }
-
-    public static ClienteDaoImpl getInstance() {
+    
+    public static PersonaDaoImpl getInstance(){
         return instance;
     }
-
-    public void guardar(Cliente cliente) {
-        System.out.println("llega a guardar de ClienteDaoImpl");
+    
+    @Override
+    public void guardar(Persona persona) {
+        System.out.println("llega a guardar de AutoDaoImpl");
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.persist(cliente);     //lo graba en la sesion de Hibernate
+            em.persist(persona);     //lo graba en la sesion de Hibernate
 
             em.getTransaction().commit();   //lo graba en la BD
         } catch (Exception e) {
@@ -49,38 +48,45 @@ public class ClienteDaoImpl implements ClienteDao {
             } catch (Exception e) {
             }
         }
-
     }
-    
+
+   
     @Override
-    public Cliente findById(Long id) {
+    public Persona buscarPorId(Long id) {
         EntityManager em = null;
-        Cliente cliente = new Cliente();
+        Persona persona = new Persona();
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            cliente = em.find(Cliente.class, id);
+            persona = em.find(Persona.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             em.close();
         }
-        return cliente;
-    }
-
-    @Override
-    public void guardar(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Persona buscarPorId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persona;
     }
 
     @Override
     public void modificar(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       System.out.println("llega a modificar de AutoDaoImpl");
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.merge(persona); //lo 
+
+            em.getTransaction().commit();   //lo graba en la BD
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 
 }

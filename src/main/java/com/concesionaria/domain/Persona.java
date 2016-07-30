@@ -11,13 +11,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Personas")
+@Table(name = "PERSONAS")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Persona implements Serializable {
+public class Persona implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "IDPERSONA")
+    @GeneratedValue
+    @Column(name = "ID_PERSONA")
     private long idPersona;
 
     @Column(name = "NOMBRE")
@@ -28,6 +28,16 @@ public abstract class Persona implements Serializable {
 
     @Column(name = "DIRECCION")
     private String direccion;
+
+    public Persona() {
+
+    }
+
+    public Persona(String nombre, String apellido, String direccion) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+    }
 
     public long getIdPersona() {
         return idPersona;
@@ -59,15 +69,6 @@ public abstract class Persona implements Serializable {
 
     public String getDireccion() {
         return direccion;
-    }
+    }   
 
-    public Persona(){
-        
-    }
-    
-    public Persona(String nombre, String apellido, String direccion) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.direccion = direccion;
-    }
 }

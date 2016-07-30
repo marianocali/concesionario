@@ -1,23 +1,23 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
-	<persistence-unit name="clase2PU" transaction-type="RESOURCE_LOCAL">
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+    <persistence-unit name="clase2PU" transaction-type="RESOURCE_LOCAL">
 
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.concesionaria.domain.Auto</class>
-		<class>com.concesionaria.domain.Concesionario</class>
-		<class>com.concesionaria.domain.Persona</class>
-		<class>com.concesionaria.domain.Cliente</class>
-		<class>com.concesionaria.domain.Vendedor</class>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.concesionaria.domain.Auto</class>
+        <class>com.concesionaria.domain.Concesionario</class>
+        <class>com.concesionaria.domain.Persona</class>
+        <class>com.concesionaria.domain.Cliente</class>
+        <class>com.concesionaria.domain.Vendedor</class>
 
-		<properties>
-		<property name="hibernate.show_sql" value="true" />
- 			<property name="hibernate.hbm2ddl.auto" value="update"/> 
-			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/estudio"/>
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="root" />	
-			 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/> 
-		</properties>
-	</persistence-unit>
+        <properties>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update"/> 
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/estudio"/>
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value="root" />	
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/> 
+        </properties>
+    </persistence-unit>
 </persistence>
 

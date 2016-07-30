@@ -31,3 +31,19 @@ AutoDaoImpl se agrega el método informarAutosMayorAPrecio
 Se agrega la clase Persona, Cliente, Vendedor en el dominio.
 Se agregan los Daos VendedorDao, ClienteDao, ClienteDaoImpl, PersonaDao,
 Se agrega el test ClienteDaoTest
+
+27-07-2016
+La clase Persona se hace concreta. Se crea el constructor vacio.
+El autoGenerate GeneratedValue se deja sin indicar nada. mySql se encaga.
+Vendedor: el PrimaryKeyJoinColumn joinea a ID_PERSONA y no a ID_CLIENTE, así el id_Persona es el mismo para Cliente
+y Vendedor.
+Vendedor : el PrimaryKeyJoinColumn se hace con ID_PERSONA y ahí quedara la PK que se replica a Vendedor y a Cliente
+
+PersonaDao se quita el Generic <P> que no se usaba y se crean 2 metodos guardar y buscar por ID
+PersonaDaoImpl add
+ClienteDaoTest se agrega findById
+
+ConcesionarioTest  se agrega @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+AutoDaoTest se agrega @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
+

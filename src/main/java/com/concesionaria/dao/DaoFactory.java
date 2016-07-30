@@ -23,4 +23,9 @@ public class DaoFactory {
     public static ClienteDaoImpl getClienteDao(){
         return ClienteDaoImpl.getInstance();
     }
+    
+    public static PersonaDaoImpl getPersonaDao(){
+        return PersonaDaoImpl.getInstance();
+    }
+    
 }

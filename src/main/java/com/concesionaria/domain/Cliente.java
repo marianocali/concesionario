@@ -6,22 +6,20 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Clientes")
-@PrimaryKeyJoinColumn(name = "id_cliente")
+@Table(name = "CLIENTES")
+@PrimaryKeyJoinColumn(name = "ID_PERSONA")
 public class Cliente extends Persona {
 
-    
-    private int idCliente;
-    
-    @Column(name="tipo")
+    @Column(name = "TIPO")
     private String tipo;
 
-    public int getIdCliente() {
-        return idCliente;
+    public Cliente() {
+
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public Cliente(String nombre, String apellido, String direccion, String tipo) {
+        super(nombre, apellido, direccion);
+        this.tipo = tipo;
     }
 
     public String getTipo() {
@@ -29,15 +27,6 @@ public class Cliente extends Persona {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
-    public Cliente() {
-
-    }
-    
-    public Cliente( String nombre, String apellido, String direccion, String tipo) {
-        super(nombre, apellido, direccion);
         this.tipo = tipo;
     }
 

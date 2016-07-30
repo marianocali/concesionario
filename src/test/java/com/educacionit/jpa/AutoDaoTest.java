@@ -13,13 +13,16 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 /**
  *
  * @author mariano
  */
-public class AutoTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class AutoDaoTest {
 
     private static Long idInsertado;    //se usa para saber que idSe inserto, modificarlo, borrarlo
     private final String marca = "Fiat";
@@ -40,11 +43,11 @@ public class AutoTest {
         idInsertado = id;
     }
 
-    public AutoTest() {
+    public AutoDaoTest() {
     }
 
     @Test
-    public void testGuardar() {
+    public void test1Guardar() {
 
         fechaVenta.set(2007, 2, 6);
 
@@ -65,7 +68,7 @@ public class AutoTest {
     }
 
     @Test
-    public void testModificar() {
+    public void test2Modificar() {
         Auto auto;
 
         auto = autoDao.buscarAutoPorId(autoDao.getMaxId()); //obtiene el auto ingresao
@@ -89,7 +92,7 @@ public class AutoTest {
     }
 
     @Test
-    public void testGetAllAutos() {
+    public void test3GetAllAutos() {
         System.out.println(" testGetAllAutos ");
 
         List<Auto> listaAutos = new ArrayList<Auto>();
@@ -102,12 +105,12 @@ public class AutoTest {
     }
 
     @Test
-    public void testFind() {
+    public void test4Find() {
         Assert.assertTrue(true);
     }
 
     @Test
-    public void testDelete() {
+    public void test5Delete() {
         System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
         Long nroRegistrosInicio = autoDao.getMaxId();
         //elimina el auto ingresado

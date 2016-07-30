@@ -15,7 +15,7 @@ public interface PersonaDao {
     
     public void guardar(Persona persona);
 
-    public Persona buscarPersonaPorId(Long id);
+    public Persona buscarPorId(Long id);
 
     public void modificar(Persona persona);
     
