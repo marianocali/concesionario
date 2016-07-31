@@ -30,13 +30,14 @@ public class ClienteDaoImpl implements ClienteDao {
         return instance;
     }
 
-    public void guardar(Cliente cliente) {
+    @Override
+    public void guardar(Persona persona) {
         System.out.println("llega a guardar de ClienteDaoImpl");
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.persist(cliente);     //lo graba en la sesion de Hibernate
+            em.persist(persona);     //lo graba en la sesion de Hibernate
 
             em.getTransaction().commit();   //lo graba en la BD
         } catch (Exception e) {
@@ -49,11 +50,10 @@ public class ClienteDaoImpl implements ClienteDao {
             } catch (Exception e) {
             }
         }
-
     }
-    
+
     @Override
-    public Cliente findById(Long id) {
+    public Persona buscarPorId(Long id) {
         EntityManager em = null;
         Cliente cliente = new Cliente();
         try {
@@ -69,18 +69,51 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public void guardar(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Persona buscarPorId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void modificar(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("llega a modificar de AutoDaoImpl");
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.merge(persona); //lo 
+
+            em.getTransaction().commit();   //lo graba en la BD
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void eliminar(long idPersona) {
+        System.out.println("llega a eliminar de VendedorDaoImpl idPersona: " + idPersona);
+
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Persona persona = em.find(Persona.class, idPersona);
+            em.remove(persona); //lo elimina en la sesion de Hibernate 
+            em.getTransaction().commit();   //lo elimina en la BD
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

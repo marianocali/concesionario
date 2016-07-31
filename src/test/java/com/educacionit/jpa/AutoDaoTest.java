@@ -30,7 +30,7 @@ public class AutoDaoTest {
     private final Integer anio = 2013;
     private final Calendar fechaVenta = Calendar.getInstance();
     private final Long precio = 120000l;
-    
+
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
     private AutoDaoImpl autoDao = DaoFactory.getAutoDao();
@@ -110,7 +110,15 @@ public class AutoDaoTest {
     }
 
     @Test
-    public void test5Delete() {
+    public void test5InformarAutosMayorAPrecio() {
+        Log.log(Level.INFO, "testInformarAutosMayorAPrecio");
+
+        Double precioMinimo = 150000d;
+        AutoService.informarAutosMayorAPrecio(precioMinimo);
+    }
+
+    @Test
+    public void test6Delete() {
         System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
         Long nroRegistrosInicio = autoDao.getMaxId();
         //elimina el auto ingresado
@@ -127,13 +135,4 @@ public class AutoDaoTest {
 
     }
 
-//    @Test
-    public void testInformarAutosMayorAPrecio() {
-        Log.log(Level.INFO, "testInformarAutosMayorAPrecio");
-
-        Double precioMinimo = 150000d;
-
-        AutoService.informarAutosMayorAPrecio(precioMinimo); 
-        
-    }
 }

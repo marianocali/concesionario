@@ -19,4 +19,6 @@ public interface PersonaDao {
 
     public void modificar(Persona persona);
     
+    public void eliminar(long idPersona);
+    
 }

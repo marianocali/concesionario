@@ -12,6 +12,6 @@ import com.concesionaria.domain.Cliente;
  * @author mariano
  */
 public interface ClienteDao extends PersonaDao {
+    
 
-    public Cliente findById(Long id);
 }
