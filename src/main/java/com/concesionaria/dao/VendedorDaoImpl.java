@@ -90,4 +90,29 @@ public class VendedorDaoImpl implements VendedorDao {
         }
     }
 
+    @Override
+    public void eliminar(long idPersona) {
+        System.out.println("llega a eliminar de VendedorDaoImpl");
+
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Persona persona = buscarPorId(idPersona);
+            
+            em.remove(persona); //lo elimina en la sesion de Hibernate 
+
+            em.getTransaction().commit();   //lo elimina en la BD
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }
