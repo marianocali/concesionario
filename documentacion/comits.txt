@@ -52,3 +52,7 @@ Vendedor se agrega concesionario que linkea al Concesionario del vendedor @JoinC
 ClienteDaoimpl metodo guardar ahora sobrescribe el de Persona y persiste una Persona
 PersonaDao y PersonaDaoImpl se agrega eliminar
 ClienteDaoTest se agrega @FixMethodOrder se agrega test eliminar y modificar
+
+ClienteDaoimpl y VendedorDaoimpl se hace que extienda de PersonaDaoImpl así usa los métodos guardar, buscarPorId, modificar y eliminar de PersonaDaoImpl.
+PersonaDaoImpl el constructor tuvo que hacerse Publico sino no se podía heredar.
+

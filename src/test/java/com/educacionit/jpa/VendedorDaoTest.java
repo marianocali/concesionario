@@ -5,14 +5,11 @@
  */
 package com.educacionit.jpa;
 
-import com.concesionaria.dao.ClienteDaoImpl;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.dao.VendedorDaoImpl;
-import com.concesionaria.domain.Cliente;
 import com.concesionaria.domain.Concesionario;
 import com.concesionaria.domain.Vendedor;
 import java.util.Calendar;
-import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 

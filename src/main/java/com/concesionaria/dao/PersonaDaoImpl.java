@@ -20,8 +20,7 @@ public class PersonaDaoImpl implements PersonaDao {
 
     private static PersonaDaoImpl instance = new PersonaDaoImpl();
 
-    private PersonaDaoImpl() {
-        //constructor privado para usar Singleton
+    public PersonaDaoImpl() {
     }
 
     public static PersonaDaoImpl getInstance() {
@@ -95,10 +94,8 @@ public class PersonaDaoImpl implements PersonaDao {
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            Persona persona = buscarPorId(idPersona);
-
+            Persona persona = em.find(Persona.class, idPersona);
             em.remove(persona); //lo elimina en la sesion de Hibernate 
-
             em.getTransaction().commit();   //lo elimina en la BD
         } catch (Exception e) {
             e.printStackTrace();
