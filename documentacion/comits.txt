@@ -46,4 +46,5 @@ ClienteDaoTest se agrega findById
 ConcesionarioTest  se agrega @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 AutoDaoTest se agrega @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-
+Se agrega un Set de vendedores en la clase Concesionario con mapeo  @JoinColumn(name = "idConcesionario")
+Vendedor se agrega concesionario que linkea al Concesionario del vendedor @JoinColumn(name = "idConcesionario")

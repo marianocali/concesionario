@@ -30,4 +30,6 @@ public interface ConcesionarioDao {
     public Concesionario informarAutos(Long idConcesionario);
     
     public void eliminar(Long idConcesionario);
+    
+    public void informarSueldos();
 }

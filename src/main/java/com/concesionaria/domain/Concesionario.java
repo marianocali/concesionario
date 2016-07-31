@@ -27,6 +27,8 @@ public class Concesionario implements Serializable {
 
     private Set<Auto> autos;
 
+    private Set<Vendedor> vendedores;
+
     public Concesionario() {
         this.autos = new HashSet<Auto>();
 
@@ -38,7 +40,7 @@ public class Concesionario implements Serializable {
         return autos;
     }
 
-    public void setAutos(Set <Auto> autos) {
+    public void setAutos(Set<Auto> autos) {
         this.autos = autos;
     }
 
@@ -68,6 +70,16 @@ public class Concesionario implements Serializable {
         this.direccion = direccion;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idConcesionario")
+    public Set<Vendedor> getVendedores() {
+        return vendedores;
+    }
+
+    public void setVendedores(Set<Vendedor> vendedores) {
+        this.vendedores = vendedores;
+    }
+
     public void mostrarConcesionario() {
         System.out.println(" ");
         System.out.println(" id: " + this.getIdConcesionario());
@@ -77,11 +89,9 @@ public class Concesionario implements Serializable {
 
     @Override
     public String toString() {
-        return "Concesionario{" + "idConcesionario=" + idConcesionario 
-                + ", nombre=" + nombre 
-                + ", direccion=" + direccion ; 
+        return "Concesionario{" + "idConcesionario=" + idConcesionario
+                + ", nombre=" + nombre
+                + ", direccion=" + direccion;
     }
-    
-    
 
 }

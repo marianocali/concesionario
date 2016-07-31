@@ -1,13 +1,17 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.concesionaria.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -21,7 +25,7 @@ import javax.persistence.Table;
 public class Vendedor extends Persona {
 
     @Column(name = "FECHA_INGRESO")
-    private Date fechaIngreso;
+    private Calendar fechaIngreso;
 
     @Column(name = "LEGAJO")
     private String legajo;
@@ -29,11 +33,15 @@ public class Vendedor extends Persona {
     @Column(name = "SUELDO")
     private double sueldo;
 
-    public Date getFechaIngreso() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idConcesionario", nullable = true)
+    private Concesionario concesionario;
+
+    public Calendar getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(Calendar fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -53,15 +61,24 @@ public class Vendedor extends Persona {
         this.sueldo = sueldo;
     }
 
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+
     public Vendedor() {
 
     }
 
-    public Vendedor(String nombre, String apellido, String direccion, Date fechaIngreso, String legajo, double sueldo) {
+    public Vendedor(String nombre, String apellido, String direccion, Calendar fechaIngreso, String legajo, double sueldo, Concesionario concesionario) {
         super(nombre, apellido, direccion);
         this.fechaIngreso = fechaIngreso;
         this.legajo = legajo;
         this.sueldo = sueldo;
+        this.concesionario = concesionario;
     }
 
 }

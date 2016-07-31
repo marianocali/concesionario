@@ -239,4 +239,9 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
             em.close();
         }
     }
+
+    @Override
+    public void informarSueldos() {
+        
+    }
 }

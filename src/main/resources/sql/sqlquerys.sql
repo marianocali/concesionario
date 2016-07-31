@@ -24,4 +24,4 @@ SHOW TABLE STATUS;
 SELECT @@version;		
 select @@GLOBAL.sql_mode;
 
-DROP TABLE estudio.Personas;
+
