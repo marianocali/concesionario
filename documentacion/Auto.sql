@@ -11,4 +11,3 @@ CREATE TABLE estudio.Auto
     KEY PKConcesionario (IDAUTO),
     CONSTRAINT FK_Concesionario FOREIGN KEY (idConcesionario) REFERENCES Concesionario (idConcesionario)) 
  )
-   AUTO_INCREMENT=16 
