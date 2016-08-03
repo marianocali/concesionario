@@ -6,6 +6,7 @@
 package com.concesionaria.dao;
 
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.dto.ConcesionariaSueldosDto;
 import java.util.List;
 
 /**
@@ -31,5 +32,5 @@ public interface ConcesionarioDao {
     
     public void eliminar(Long idConcesionario);
     
-    public void informarSueldos();
+    public List<ConcesionariaSueldosDto> informarSueldos();
 }

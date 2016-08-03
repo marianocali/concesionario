@@ -8,6 +8,7 @@ import com.concesionaria.dao.ConcesionarioDao;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.dto.ConcesionariaSueldosDto;
 import com.concesionaria.service.ConcesionarioService;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +22,7 @@ import org.junit.runners.MethodSorters;
  * @author mariano
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ConcesionarioTest {
+public class ConcesionarioDaoTest {
 
     private static Long idInsertado = null;
     private static Long idAutoInsertado = null;
@@ -30,7 +31,7 @@ public class ConcesionarioTest {
     private final String nombre;
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
-    public ConcesionarioTest() {
+    public ConcesionarioDaoTest() {
         this.nombre = "Toyota";
         this.direccion = "Av Montes de Oca 720";
     }
@@ -170,7 +171,13 @@ public class ConcesionarioTest {
         ConcesionarioService.informarAutos(idConcesionario);
     }
 
-//        @Test
+    @Test
+    public void test8InformarSueldos() {
+        Log.log(Level.INFO, "test informarAutos");
+        ConcesionarioService.informarSueldosPorConcesionario();
+    }
+
+//    @Test se comento porque abajo se elimina nuevamente
     public void test8Eliminar() {
         Log.log(Level.INFO, "testEliminar");
 

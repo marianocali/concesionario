@@ -7,9 +7,12 @@ package com.concesionaria.service;
 
 import com.concesionaria.dao.ConcesionarioDaoImpl;
 import com.concesionaria.dao.DaoFactory;
+import static com.concesionaria.dao.DaoFactory.getConcesionarioDao;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.dto.ConcesionariaSueldosDto;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -51,9 +54,17 @@ public class ConcesionarioService {
 
         System.out.println("\n\n");
     }
+    
+    public static void informarSueldosPorConcesionario(){
+        
+         List <ConcesionariaSueldosDto> sueldos = getConcesionarioDao().informarSueldos();
+         for(ConcesionariaSueldosDto concesionarioSueldo : sueldos){
+             concesionarioSueldo.mostrar(concesionarioSueldo);
+         }
+    }
 
     public static void eliminar(Long idConcesionario) {
         DaoFactory.getConcesionarioDao().eliminar(idConcesionario);
     }
-
+    
 }

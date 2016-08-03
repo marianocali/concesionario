@@ -7,13 +7,18 @@ package com.concesionaria.dao;
 
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
+import com.concesionaria.domain.Vendedor;
+import com.concesionaria.dto.ConcesionariaSueldosDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import static javafx.scene.input.KeyCode.T;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -227,7 +232,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         try {
             em = emf.createEntityManager();
             Concesionario concesionario = null;
-            
+
             em.getTransaction().begin();
             concesionario = em.find(Concesionario.class, idConcesionario);
             em.remove(concesionario);
@@ -240,8 +245,29 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         }
     }
 
+    /**
+     * Informar de cada concesionario el gasto en sueldos.
+     * @return listado con el nombre del concesionario y el total de sueldos 
+     */
     @Override
-    public void informarSueldos() {
-        
+    public List<ConcesionariaSueldosDto> informarSueldos() {
+
+        EntityManager em = null;
+        List sueldosPorConcesionario = null;
+        try {
+            em = emf.createEntityManager();
+            String querysueldos = "select new com.concesionaria.dto.ConcesionariaSueldosDto "
+                    + "(concesionario.nombre, sum  (sueldo)) "
+                    + "from Vendedor v "
+                    + "group by v.concesionario";
+            Query q1 = em.createQuery(querysueldos);
+            sueldosPorConcesionario = q1.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return sueldosPorConcesionario;
     }
+
 }
