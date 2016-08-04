@@ -7,18 +7,14 @@ package com.concesionaria.dao;
 
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
-import com.concesionaria.domain.Vendedor;
 import com.concesionaria.dto.ConcesionariaSueldosDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import static javafx.scene.input.KeyCode.T;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
