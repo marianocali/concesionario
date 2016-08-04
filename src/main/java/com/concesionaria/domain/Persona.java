@@ -17,7 +17,7 @@ public class Persona implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID_PERSONA")
+    @Column(name = "IDPERSONA")
     private long idPersona;
 
     @Column(name = "NOMBRE")

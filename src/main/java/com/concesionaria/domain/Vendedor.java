@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "VENDEDORES")
-@PrimaryKeyJoinColumn(name = "ID_PERSONA")
+@PrimaryKeyJoinColumn(name = "IDPERSONA")
 public class Vendedor extends Persona {
 
     @Column(name = "FECHA_INGRESO")
