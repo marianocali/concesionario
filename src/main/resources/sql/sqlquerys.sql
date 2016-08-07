@@ -9,6 +9,8 @@ SELECT * FROM estudio.PERSONAS;
 SELECT * FROM estudio.CLIENTES;
 SELECT * FROM estudio.VENDEDORES;
 
+ALTER TABLE estudio.Concesionario CHANGE idConcesionario IDCONCESIONARIO BIGINT(20);
+
 desc estudio.Auto;
 
 SELECT  *   
@@ -25,6 +27,8 @@ SELECT @@version;
 select @@GLOBAL.sql_mode;
 SHOW DATABASES;
 
+
 CREATE DATABASE estudio;
 USE estudio;
+
 

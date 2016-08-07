@@ -11,6 +11,7 @@ import static com.concesionaria.dao.DaoFactory.getConcesionarioDao;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
 import com.concesionaria.dto.ConcesionariaSueldosDto;
+import com.concesionaria.dto.ConcesionarioGastoCompraAutosDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,23 +49,34 @@ public class ConcesionarioService {
             for (Auto auto : concesionario.getAutos()) {
                 auto.mostrarAuto(auto);
             }
-        }else{
+        } else {
             System.out.println("\n\n" + "No se encontró el concesionario + " + idConcesionario);
         }
 
         System.out.println("\n\n");
     }
-    
-    public static void informarSueldosPorConcesionario(){
-        
-         List <ConcesionariaSueldosDto> sueldos = getConcesionarioDao().informarSueldos();
-         for(ConcesionariaSueldosDto concesionarioSueldo : sueldos){
-             concesionarioSueldo.mostrar(concesionarioSueldo);
-         }
+
+    public static void informarSueldosPorConcesionario() {
+
+        List<ConcesionariaSueldosDto> sueldos = getConcesionarioDao().informarSueldos();
+        for (ConcesionariaSueldosDto concesionarioSueldo : sueldos) {
+            concesionarioSueldo.mostrar(concesionarioSueldo);
+        }
     }
 
     public static void eliminar(Long idConcesionario) {
         DaoFactory.getConcesionarioDao().eliminar(idConcesionario);
     }
-    
+
+    /**
+     * gastos en compra de autos (la concesionaria compra el auto a un 60% del
+     * valor de venta)
+     */
+    public static void informarGastoEnCompraDeAutos() {
+        List<ConcesionarioGastoCompraAutosDto> gastos = getConcesionarioDao().informarGastoEnCompraDeAutos();
+        for (ConcesionarioGastoCompraAutosDto concesionarioGastos : gastos) {
+            System.out.println(concesionarioGastos);
+        }
+    }
+
 }

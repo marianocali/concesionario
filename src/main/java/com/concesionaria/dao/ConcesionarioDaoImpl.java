@@ -8,6 +8,7 @@ package com.concesionaria.dao;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
 import com.concesionaria.dto.ConcesionariaSueldosDto;
+import com.concesionaria.dto.ConcesionarioGastoCompraAutosDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -266,4 +267,22 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         return sueldosPorConcesionario;
     }
 
+    public List<ConcesionarioGastoCompraAutosDto> informarGastoEnCompraDeAutos() {
+        EntityManager em = null;
+        List gastosPorCompras = null;
+        
+        try {
+            em = emf.createEntityManager();
+            String queryGastosComprasAutos = "select new com.concesionaria.dto.ConcesionarioGastoCompraAutosDto "
+                    + "(concesionario.nombre, (sum(precio) * 0.6)) "
+                    + " from Auto as a"
+                    + " group by a.concesionario";
+            Query query = em.createQuery(queryGastosComprasAutos);
+            gastosPorCompras = query.getResultList();
+                    
+        } catch (Exception e) {
+        }
+        return gastosPorCompras;
+    }
+    
 }
