@@ -23,7 +23,7 @@ import javax.persistence.Query;
  */
 public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
     private static ConcesionarioDaoImpl instance = new ConcesionarioDaoImpl();
@@ -41,7 +41,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
     public void agregar(Concesionario concesionario) {
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.persist(concesionario);
             em.getTransaction().commit();
@@ -61,7 +61,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.merge(concesionario);
             em.getTransaction().commit();
@@ -78,7 +78,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
 
             em.getTransaction().begin();
             concesionario = em.find(Concesionario.class, concesionario.getIdConcesionario());
@@ -97,7 +97,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         EntityManager em = null;
         Concesionario concesionario = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             concesionario = em.find(Concesionario.class, id);
 
@@ -115,10 +115,10 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         Long id = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
-            String query = ("select max(c.id) from Concesionario c");
+            String query = ("select max(c.idConcesionario) from Concesionario c");
             Query q = em.createQuery(query);
 
             id = (Long) q.getSingleResult();
@@ -140,7 +140,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String consulta = "from Concesionario";
             Query query = em.createQuery(consulta);
@@ -163,11 +163,10 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         Log.info("agregarAutos");
 
-        EntityManagerFactory emfstatic = Persistence.createEntityManagerFactory("clase2PU");
         EntityManager em = null;
         ConcesionarioDaoImpl concesionarioDaoImpl = DaoFactory.getConcesionarioDao();
         try {
-            em = emfstatic.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             Concesionario concesionario = concesionarioDaoImpl.findById(idConcesionario);
 
@@ -202,7 +201,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         EntityManager em = null;
         Concesionario concesionario = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             Query query = em.createQuery("select c from Concesionario c join c.autos"
                     + " where c.idConcesionario like :param");
@@ -227,7 +226,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             Concesionario concesionario = null;
 
             em.getTransaction().begin();
@@ -252,7 +251,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         EntityManager em = null;
         List sueldosPorConcesionario = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             String querysueldos = "select new com.concesionaria.dto.ConcesionariaSueldosDto "
                     + "(concesionario.nombre, sum  (sueldo)) "
                     + "from Vendedor v "
@@ -272,7 +271,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         List gastosPorCompras = null;
         
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             String queryGastosComprasAutos = "select new com.concesionaria.dto.ConcesionarioGastoCompraAutosDto "
                     + "(concesionario.nombre, (sum(precio) * 0.6)) "
                     + " from Auto as a"

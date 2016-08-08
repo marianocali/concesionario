@@ -25,8 +25,8 @@ import org.junit.runners.MethodSorters;
 public class AutoDaoTest {
 
     private static Long idInsertado;    //se usa para saber que idSe inserto, modificarlo, borrarlo
-    private final String marca = "Fiat";
-    private final String modelo = "Palio";
+    private final String marca = "Toyoya";
+    private final String modelo = "Corolla";
     private final Integer anio = 2013;
     private final Calendar fechaVenta = Calendar.getInstance();
     private final Long precio = 120000l;
@@ -67,7 +67,7 @@ public class AutoDaoTest {
         Assert.assertEquals(modelo, auto2.getModelo());
     }
 
-    @Test
+//    @Test
     public void test2Modificar() {
         Auto auto;
 
@@ -117,7 +117,7 @@ public class AutoDaoTest {
         AutoService.informarAutosMayorAPrecio(precioMinimo);
     }
 
-    @Test
+//    @Test
     public void test6Delete() {
         System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
         Long nroRegistrosInicio = autoDao.getMaxId();

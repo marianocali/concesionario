@@ -78,5 +78,9 @@ public class ConcesionarioService {
             System.out.println(concesionarioGastos);
         }
     }
-
+    
+    
+    public static void main(String[] args) {
+        ConcesionarioService.informarGastoEnCompraDeAutos();
+    }
 }
