@@ -1,4 +1,4 @@
-CREATE TABLE estudio.AUTOS
+CREATE TABLE estudio.Auto
  (
     IDAUTO bigint(20) NOT NULL AUTO_INCREMENT,
     ANIO int(11) DEFAULT NULL,
