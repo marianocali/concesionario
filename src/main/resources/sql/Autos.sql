@@ -1,4 +1,4 @@
-CREATE TABLE estudio.Auto
+CREATE TABLE estudio.AUTOS
  (
     IDAUTO bigint(20) NOT NULL AUTO_INCREMENT,
     ANIO int(11) DEFAULT NULL,
@@ -8,6 +8,8 @@ CREATE TABLE estudio.Auto
     PRECIO bigint(20) ,
     IDCONCESIONARIO bigint(20) ,
     PRIMARY KEY (IDAUTO), 
-    KEY PKConcesionario (IDAUTO),
-    CONSTRAINT FK_Concesionario FOREIGN KEY (idConcesionario) REFERENCES Concesionario (idConcesionario)) 
- )
+    KEY PKConcesionario (IDAUTO)   
+ );
+
+ALTER TABLE estudio.AUTOS ADD CONSTRAINT FKConcesionario FOREIGN KEY (IDCONCESIONARIO)
+REFERENCES CONCESIONARIO(IDCONCESIONARIO);
