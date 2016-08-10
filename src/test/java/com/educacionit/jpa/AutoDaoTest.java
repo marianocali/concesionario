@@ -67,7 +67,7 @@ public class AutoDaoTest {
         Assert.assertEquals(modelo, auto2.getModelo());
     }
 
-//    @Test
+    @Test
     public void test2Modificar() {
         Auto auto;
 
@@ -117,7 +117,7 @@ public class AutoDaoTest {
         AutoService.informarAutosMayorAPrecio(precioMinimo);
     }
 
-//    @Test
+    @Test
     public void test6Delete() {
         System.out.println("autoDao.getMaxId(): " + autoDao.getMaxId());
         Long nroRegistrosInicio = autoDao.getMaxId();

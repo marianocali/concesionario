@@ -9,10 +9,6 @@ SELECT * FROM estudio.PERSONAS;
 SELECT * FROM estudio.CLIENTES;
 SELECT * FROM estudio.VENDEDORES;
 
-ALTER TABLE estudio.Concesionario CHANGE idConcesionario IDCONCESIONARIO BIGINT(20);
-
-desc estudio.Auto;
-
 SELECT  *   
 FROM estudio.Auto A,
 estudio.Concesionario as C
