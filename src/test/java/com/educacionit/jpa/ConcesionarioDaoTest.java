@@ -145,7 +145,7 @@ public class ConcesionarioDaoTest {
         ConcesionarioService.agregarAutos(getIdInsertado(), autos);
     }
 
-//    @Test
+    @Test
     public void test6Modificar() {
         Log.info("testModificar");
 
@@ -189,7 +189,7 @@ public class ConcesionarioDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test9EliminarConcesionarioYSusAutos() {
         Log.log(Level.INFO, "testEliminarConcesionarioYSusAutos");
         Concesionario concesionario;

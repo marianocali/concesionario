@@ -40,12 +40,12 @@ public class VendedorDaoTest {
     public void test1Guardar() {
         fechaIngreso.set(2010, 02, 21);
 
-        String legajo = "103525";
-        double sueldo = 1200;
+        String legajo = "2105";
+        double sueldo = 25000;
         long maxIdConcesionario = DaoFactory.getConcesionarioDao().getMaxId();
 
-        Concesionario concesionario = DaoFactory.getConcesionarioDao().findById(maxIdConcesionario); //usar este
-        Vendedor vendedor = new Vendedor("Pedro", "Morales", "Tucuman 354", fechaIngreso, legajo, sueldo, concesionario);
+        Concesionario concesionario = DaoFactory.getConcesionarioDao().findById(maxIdConcesionario);
+        Vendedor vendedor = new Vendedor("Hector", "Saldinger", "Burruchaga 357", fechaIngreso, legajo, sueldo, concesionario);
 
         vendedorDao.guardar(vendedor);             //lo guarda en BD
         setIdInsertado(vendedor.getIdPersona());
@@ -53,7 +53,7 @@ public class VendedorDaoTest {
         Assert.assertEquals(getIdInsertado(), Long.valueOf(vendedorDao.buscarPorId(idInsertado).getIdPersona()));
     }
 
-//    @Test
+    @Test
     public void test2FindById() {
 
         Vendedor vendedor = (Vendedor) vendedorDao.buscarPorId(getIdInsertado());
@@ -61,7 +61,7 @@ public class VendedorDaoTest {
         Assert.assertEquals(getIdInsertado(), Long.valueOf(vendedor.getIdPersona())); //se agrega el Long.valueOf porque sino no compila el test
     }
 
-//    @Test
+    @Test
     public void test3Modificar() {
 
         Vendedor vendedor = (Vendedor) vendedorDao.buscarPorId(getIdInsertado());
@@ -89,7 +89,7 @@ public class VendedorDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test4Eliminar() {
 
         vendedorDao.eliminar(getIdInsertado());
