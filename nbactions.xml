@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-compilar test</actionName>
+            <displayName>compilar test</displayName>
+            <goals>
+                <goal>test-compile</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-compilar sin test</actionName>
+            <displayName>compilar sin test</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>-Dmaven.test.skip=true</goal>
+            </goals>
+        </action>
+
+
+</actions>
