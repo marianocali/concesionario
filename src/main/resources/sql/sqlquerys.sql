@@ -4,14 +4,10 @@ SELECT * /*DISTINCT TABLE_NAME*/
 	AND TABLE_NAME IN ('Auto');
         
 SELECT * FROM estudio.CONCESIONARIO;
-SELECT * FROM estudio.Auto;
+SELECT * FROM estudio.AUTOS;
 SELECT * FROM estudio.PERSONAS;
 SELECT * FROM estudio.CLIENTES;
 SELECT * FROM estudio.VENDEDORES;
-
-ALTER TABLE estudio.Concesionario CHANGE idConcesionario IDCONCESIONARIO BIGINT(20);
-
-desc estudio.Auto;
 
 SELECT  *   
 FROM estudio.Auto A,
@@ -20,9 +16,9 @@ where A.idConcesionario = C.idConcesionario;
 
 -- drop table estudio.Concesionario;
 -- drop table estudio.VENDEDORES;
-
+-- Mostrar 
 SHOW CREATE TABLE estudio.CONCESIONARIO;
-SHOW CREATE TABLE estudio.Auto;
+SHOW CREATE TABLE estudio.AUTOS;
 SHOW VARIABLES LIKE '%innodb%';
 SHOW TABLE STATUS;
 SELECT @@version;		

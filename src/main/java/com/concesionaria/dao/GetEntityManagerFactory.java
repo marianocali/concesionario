@@ -9,7 +9,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
+ * Crea el EntityManagerFactory que es la fabrica de Sesione para trabajar con la BD
+ * se crea solo uno porque su costo de creación es altísimo. Puede ser hasta de 1 minuto o mas
+ * A partir del la instancia de EntityManagerFactory se van a crear los EntityManager que se usan
+ * para cada una de las operaciones de CRUD con la BD.
  * @author mariano
  */
 public class GetEntityManagerFactory {

@@ -33,7 +33,7 @@ public class AutoDaoTest {
 
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
-    private AutoDaoImpl autoDao = DaoFactory.getAutoDao();
+    private final AutoDaoImpl autoDao = DaoFactory.getAutoDao();
 
     public Long getIdInsertado() {
         return idInsertado;
