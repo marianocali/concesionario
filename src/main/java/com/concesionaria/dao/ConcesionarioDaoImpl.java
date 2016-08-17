@@ -8,13 +8,13 @@ package com.concesionaria.dao;
 import com.concesionaria.domain.Auto;
 import com.concesionaria.domain.Concesionario;
 import com.concesionaria.dto.ConcesionariaSueldosDto;
+import com.concesionaria.dto.ConcesionarioFacturacionYAutosVendidosDto;
+import com.concesionaria.dto.ConcesionarioGananciaDto;
 import com.concesionaria.dto.ConcesionarioGastoCompraAutosDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -23,7 +23,6 @@ import javax.persistence.Query;
  */
 public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
-//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
     private static final java.util.logging.Logger Log = java.util.logging.Logger.getLogger("Log4j.class");
 
     private static ConcesionarioDaoImpl instance = new ConcesionarioDaoImpl();
@@ -243,7 +242,8 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
 
     /**
      * Informar de cada concesionario el gasto en sueldos.
-     * @return listado con el nombre del concesionario y el total de sueldos 
+     *
+     * @return listado con el nombre del concesionario y el total de sueldos
      */
     @Override
     public List<ConcesionariaSueldosDto> informarSueldos() {
@@ -261,7 +261,12 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            em.close();
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
         }
         return sueldosPorConcesionario;
     }
@@ -269,7 +274,7 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
     public List<ConcesionarioGastoCompraAutosDto> informarGastoEnCompraDeAutos() {
         EntityManager em = null;
         List gastosPorCompras = null;
-        
+
         try {
             em = GetEntityManagerFactory.getInstance().createEntityManager();
             String queryGastosComprasAutos = "select new com.concesionaria.dto.ConcesionarioGastoCompraAutosDto "
@@ -278,10 +283,132 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
                     + " group by a.concesionario";
             Query query = em.createQuery(queryGastosComprasAutos);
             gastosPorCompras = query.getResultList();
-                    
+
         } catch (Exception e) {
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+            return gastosPorCompras;
         }
-        return gastosPorCompras;
     }
-    
+
+    /**
+     * Informar facturación por concesionario junto con la cantidad de autos
+     * vendidos
+     *
+     * @return Lista con cada concesionario, su facturación y total de autos
+     * vendidos Query que ejecuta:
+     *
+     * Select C.nombre , count(A.IDAUTO) AS " autos vendidos" , sum(A.precio)
+     * FROM AUTOS AS A JOIN CONCESIONARIO AS C ON A.IDCONCESIONARIO =
+     * C.IDCONCESIONARIO group by A.IDCONCESIONARIO;
+     */
+    public List<ConcesionarioFacturacionYAutosVendidosDto> informarFacturacionYNroAutosVendiddos() {
+
+        EntityManager em = null;
+        List facturacionYAutosVendidos = null;
+
+        try {
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
+            String queryFacturacionYAutosVendidos = "select new com.concesionaria.dto.ConcesionarioFacturacionYAutosVendidosDto "
+                    + "(concesionario.nombre, sum(precio), count( idAuto)) "
+                    + " from Auto AS A "
+                    + " group by A.concesionario";
+            Query query = em.createQuery(queryFacturacionYAutosVendidos);
+            facturacionYAutosVendidos = query.getResultList();
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return facturacionYAutosVendidos;
+    }
+
+    /**
+     * Informar la ganancia de cada concesionario durante el año 2002
+     * La ganancia es el 40% del total de la ventas del año
+     * @return
+     */
+    public List<ConcesionarioGananciaDto> informarGanancia() {
+        EntityManager em = null;
+        List gananciaPorConcesionario = null;
+
+        try {
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
+            String queryFacturacionYAutosVendidos = "select new com.concesionaria.dto.ConcesionarioGananciaDto "
+                    + "(concesionario.nombre, sum(precio) * 0.4) "
+                    + " from Auto AS A "
+                    + " where A.anio = 2014 "
+                    + " group by A.concesionario";
+            Query query = em.createQuery(queryFacturacionYAutosVendidos);
+            gananciaPorConcesionario = query.getResultList();
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+        return gananciaPorConcesionario;
+    }
+
+    /**
+     * Actualizar en las tablas correspondientes: el sueldo fijo con un
+     * incremento de 13% UPDATE estudio.VENDEDORES SET SUELDO = SUELDO / 1.13
+     * WHERE IDCONCESIONARIO = 24;S
+     */
+    /**
+     * Actualiza el sueldo de los empleados del concesionario dado en base al
+     * porcentaje ingresado
+     *
+     * @param aumento porcentaje de aumento
+     * @param idConcesionario concesionario en el que se aplica el aumento
+     */
+    public void aumentarSueldos(double aumento, long idConcesionario) {
+        EntityManager em = null;
+        try {
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
+            //abro transacción
+            em.getTransaction().begin();
+            //armo el query con los parametros
+            String queryUpdateSueldos = " UPDATE Vendedor AS V "
+                    + " SET sueldo = (sueldo * :aumento) "
+                    + " WHERE V.concesionario = :id";
+            
+            //busco el concesionario a partir del idConcesionario ingresado
+            Concesionario concesionario = findById(idConcesionario);
+            
+            //reemplaza los parametros del query por los parametros de entrada
+            int sueldosActualizados = em.createQuery(queryUpdateSueldos)
+                    .setParameter("aumento", aumento)
+                    .setParameter("id", concesionario)
+                    .executeUpdate();
+            //comiteo los cambios
+            em.getTransaction().commit();
+
+            Log.log(Level.INFO, "sueldos actualizados : " + sueldosActualizados);
+        } catch (Exception e) {
+            Log.log(Level.SEVERE, "Error al aumentar sueldos " + e.getMessage());
+        } finally {
+            if (em != null) {
+                try {
+                    em.close();
+                } catch (Exception e) {
+                    Log.log(Level.SEVERE, "Error al intentar cerrar el EntityManager " + e.getMessage());
+                }
+            }
+        }
+
+    }
 }
