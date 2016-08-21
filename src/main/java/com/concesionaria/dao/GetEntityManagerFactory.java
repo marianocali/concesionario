@@ -31,6 +31,18 @@ public class GetEntityManagerFactory {
         return emf;
     }
 
+    
+     public void shutDown() {
+        emf.close();
+    }
+
+    
+    public void close() throws Exception {
+        if (emf.isOpen()) {
+            emf.close();
+        }
+    }
+    
    
 
 }
