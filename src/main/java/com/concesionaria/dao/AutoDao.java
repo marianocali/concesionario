@@ -28,14 +28,12 @@ public interface AutoDao {
 
     public Long getMaxId();
 
-    public void shutDown();
-
-    public void close() throws Exception;
-
     public List<Auto> getAllAutos();
 
     public List<Auto> findByConcesionarioId(Long idConcesionario);
     
     public List<Auto> informarAutosMayorAPrecio(Double precio);
+    
+    public List<Auto> informarAutosOrdenadosPorPrecio();
 
 }
