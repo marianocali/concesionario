@@ -6,7 +6,6 @@
 package com.concesionaria.app;
 
 import com.concesionaria.dao.AutoDao;
-import com.concesionaria.dao.AutoDaoImpl;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.domain.Auto;
 import java.text.SimpleDateFormat;
@@ -41,16 +40,9 @@ public class ApplicationAutos {
             for (Auto auto : autos) {
                 mostrarAuto(auto);
             }
-//            mostrarAuto(auto2);
-
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                autoDao.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        
         }
     }
 
