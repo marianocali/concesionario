@@ -16,8 +16,6 @@ import org.hibernate.Transaction;
  */
 public class AutoDaoImpl implements AutoDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
-
     private static AutoDaoImpl instance = new AutoDaoImpl();
 
     //Constructor privado para usar patron Singleton
@@ -34,7 +32,7 @@ public class AutoDaoImpl implements AutoDao {
         System.out.println("llega a guardar de AutoDaoImpl");
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.persist(auto);     //lo graba en la sesion de Hibernate
 
@@ -57,7 +55,7 @@ public class AutoDaoImpl implements AutoDao {
         System.out.println("llega a modificar de AutoDaoImpl");
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.merge(auto); //lo 
 
@@ -75,23 +73,12 @@ public class AutoDaoImpl implements AutoDao {
 
     }
 
-    public void shutDown() {
-        emf.close();
-    }
-
-    @Override
-    public void close() throws Exception {
-        if (emf.isOpen()) {
-            emf.close();
-        }
-    }
-
     @Override
     public Auto buscarAutoPorId(Long id) {
         EntityManager em = null;
         Auto auto = new Auto();
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             auto = em.find(Auto.class, id);
         } catch (Exception e) {
@@ -109,7 +96,7 @@ public class AutoDaoImpl implements AutoDao {
         Session session = null;
         Transaction transaction;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             auto = em.find(Auto.class, auto.getIdAuto());
 
@@ -131,7 +118,7 @@ public class AutoDaoImpl implements AutoDao {
     @Override
     public List<Auto> buscarPorMarcaYModelo(String marca, String modelo) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = GetEntityManagerFactory.getInstance().createEntityManager();
         List<Auto> us = null;
         try {
             em.getTransaction().begin();
@@ -164,7 +151,7 @@ public class AutoDaoImpl implements AutoDao {
         Transaction transaction;
         try {
 
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
             Auto auto = em.find(Auto.class, id);    //lo carga en el contexto de Hibernate para que no este detachado
@@ -190,7 +177,7 @@ public class AutoDaoImpl implements AutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String consulta = "from Auto";
             Query query = em.createQuery(consulta);
@@ -216,7 +203,7 @@ public class AutoDaoImpl implements AutoDao {
         Long id = null;
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String select = "select max(a.id) from Auto a";
             Query query = em.createQuery(select);
@@ -239,7 +226,7 @@ public class AutoDaoImpl implements AutoDao {
     @Override
     public List<Auto> findByConcesionarioId(Long idConcesionario) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = GetEntityManagerFactory.getInstance().createEntityManager();
         List<Auto> autos = null;
         try {
             em.getTransaction().begin();
@@ -261,23 +248,26 @@ public class AutoDaoImpl implements AutoDao {
         }
         return autos;
     }
-    
+
     /**
      * Retorna todos los autos cuyo precio supera el precio minimo indicado
+     *
      * @param precio
-     * @return 
+     * @return
      */
     @Override
     public List<Auto> informarAutosMayorAPrecio(Double precioMinimo) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = null;
         List<Auto> listaAutos = null;
+
         try {
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             long precioLong = Math.round(precioMinimo);
-            
+
             Query q = em.createQuery("select a from Auto a where a.precio > :param");
-            q.setParameter("param",  precioLong );
+            q.setParameter("param", precioLong);
             listaAutos = q.getResultList();
 
             em.getTransaction().commit();
@@ -295,4 +285,31 @@ public class AutoDaoImpl implements AutoDao {
         return listaAutos;
 
     }
+
+    @Override
+    public List<Auto> informarAutosOrdenadosPorPrecio() {
+        List<Auto> listaAutos = null;
+        EntityManager em = null;
+        try {
+
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
+            Query q = em.createQuery("SELECT A "
+                                    + "FROM Auto AS A "
+                                    + "ORDER BY A.precio desc");
+            listaAutos = q.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (em != null) {
+                    em.close();
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return listaAutos;
+    }
+
 }
