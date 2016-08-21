@@ -6,6 +6,7 @@
 package com.concesionaria.service;
 
 import com.concesionaria.dao.ConcesionarioDaoImpl;
+import static com.concesionaria.dao.ConcesionarioDaoImpl.agregarAutos;
 import com.concesionaria.dao.DaoFactory;
 import com.concesionaria.dao.GetEntityManagerFactory;
 //import static com.concesionaria.dao.DaoFactory.getConcesionarioDao;
@@ -17,6 +18,8 @@ import com.concesionaria.dto.ConcesionarioGananciaDto;
 import com.concesionaria.dto.ConcesionarioGastoCompraAutosDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -110,10 +113,25 @@ public class ConcesionarioService {
 
     }
 
+    public static void quiebraConcesionario(Long idConcesionarioQuiebra, Long idConcesionarioReemplaza) {
+
+        Concesionario concesionarioQuiebra = DaoFactory.getConcesionarioDao().findById(idConcesionarioQuiebra);
+
+        //Obtengo la lista de autos de la concesinaria a remover y los agrego a la otra concesionaria
+        Set<Auto> autosSet = concesionarioQuiebra.getAutos();
+        if (autosSet != null) {
+            ArrayList<Auto> autos = new ArrayList<Auto>(autosSet);
+            agregarAutos(idConcesionarioReemplaza, autos);
+        }
+
+        //eliminar la concesionaria
+        DaoFactory.getConcesionarioDao().eliminar(concesionarioQuiebra);
+    }
+
     public static void main(String[] args) {
 //        double porcentaje = 13;
 //        int idConcesionario = 24;
-        ConcesionarioService.informarGanancia();
+        ConcesionarioService.quiebraConcesionario(25l, 26l);
         GetEntityManagerFactory.getEmf().close();
     }
 }

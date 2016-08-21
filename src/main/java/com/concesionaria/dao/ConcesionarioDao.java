@@ -33,4 +33,7 @@ public interface ConcesionarioDao {
     public void eliminar(Long idConcesionario);
     
     public List<ConcesionariaSueldosDto> informarSueldos();
+    
+    public void quiebraConcesionario(Long idConcesionarioquiebra, Long idConcesionarioReemplaza);
+    
 }

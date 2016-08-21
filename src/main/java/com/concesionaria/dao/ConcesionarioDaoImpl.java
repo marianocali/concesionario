@@ -12,7 +12,9 @@ import com.concesionaria.dto.ConcesionarioFacturacionYAutosVendidosDto;
 import com.concesionaria.dto.ConcesionarioGananciaDto;
 import com.concesionaria.dto.ConcesionarioGastoCompraAutosDto;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -333,8 +335,9 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
     }
 
     /**
-     * Informar la ganancia de cada concesionario durante el año 2002
-     * La ganancia es el 40% del total de la ventas del año
+     * Informar la ganancia de cada concesionario durante el año 2002 La
+     * ganancia es el 40% del total de la ventas del año
+     *
      * @return
      */
     public List<ConcesionarioGananciaDto> informarGanancia() {
@@ -385,10 +388,10 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
             String queryUpdateSueldos = " UPDATE Vendedor AS V "
                     + " SET sueldo = (sueldo * :aumento) "
                     + " WHERE V.concesionario = :id";
-            
+
             //busco el concesionario a partir del idConcesionario ingresado
             Concesionario concesionario = findById(idConcesionario);
-            
+
             //reemplaza los parametros del query por los parametros de entrada
             int sueldosActualizados = em.createQuery(queryUpdateSueldos)
                     .setParameter("aumento", aumento)
@@ -400,6 +403,49 @@ public class ConcesionarioDaoImpl implements ConcesionarioDao {
             Log.log(Level.INFO, "sueldos actualizados : " + sueldosActualizados);
         } catch (Exception e) {
             Log.log(Level.SEVERE, "Error al aumentar sueldos " + e.getMessage());
+        } finally {
+            if (em != null) {
+                try {
+                    em.close();
+                } catch (Exception e) {
+                    Log.log(Level.SEVERE, "Error al intentar cerrar el EntityManager " + e.getMessage());
+                }
+            }
+        }
+
+    }
+
+    /**
+     * La concesionaria número 2 es declarada en quiebra, y cierra. 8. Dar de
+     * baja la concesionaria junto con sus autos no vendidos y sus vendedores.
+     * Los autos vendidos pasan a formar parte de la concesionaria 5.
+     *
+     * @param idConcesionarioQuiebra id de la concesionaria que quierba
+     * @param idConcesionarioReemplaza id de la concesionaria que recibe los
+     * autos
+     */
+    @Override
+    public void quiebraConcesionario(Long idConcesionarioQuiebra, Long idConcesionarioReemplaza) {
+        Concesionario concesionarioQuiebra = findById(idConcesionarioQuiebra);
+        Concesionario concesionarioReemplaza = findById(idConcesionarioReemplaza);
+
+        EntityManager em = null;
+        try {
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
+            
+            //Obtengo la lista de autos de la concesinaria a remover y los agrego a la otra concesionaria
+            Set<Auto> autosSet = concesionarioQuiebra.getAutos();
+            if (autosSet != null) {
+                ArrayList<Auto> autos = new ArrayList<Auto>(autosSet);
+                agregarAutos(idConcesionarioReemplaza, autos);
+            }
+            
+            //eliminar la concesionaria
+            eliminar(concesionarioQuiebra);
+            
+       
+        } catch (Exception e) {
+            Log.log(Level.SEVERE, "Error en quieba de concesionario " + e.getMessage());
         } finally {
             if (em != null) {
                 try {

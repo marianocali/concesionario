@@ -3,6 +3,7 @@ package com.concesionaria.domain;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -121,4 +122,48 @@ public class Auto implements Serializable {
         return "Auto{" + "idAuto=" + idAuto + ", marca=" + marca + ", modelo=" + modelo + ", precio=" + precio + ", concesionario=" + concesionario + ", fechaVenta=" + fechaVenta + ", anio=" + anio + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.idAuto);
+        hash = 29 * hash + Objects.hashCode(this.marca);
+        hash = 29 * hash + Objects.hashCode(this.modelo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Auto other = (Auto) obj;
+        if (!Objects.equals(this.idAuto, other.idAuto)) {
+            return false;
+        }
+        if (!Objects.equals(this.marca, other.marca)) {
+            return false;
+        }
+        if (!Objects.equals(this.modelo, other.modelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.precio, other.precio)) {
+            return false;
+        }
+        if (!Objects.equals(this.concesionario, other.concesionario)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaVenta, other.fechaVenta)) {
+            return false;
+        }
+        if (!Objects.equals(this.anio, other.anio)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
 }

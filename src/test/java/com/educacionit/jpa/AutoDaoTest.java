@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 /**
- *
+ * Clase de test de los Autos
  * @author mariano
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

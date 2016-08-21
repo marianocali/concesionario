@@ -10,7 +10,7 @@ SELECT * FROM estudio.CLIENTES;
 SELECT * FROM estudio.VENDEDORES;
 
 SELECT  *   
-FROM estudio.Auto A,
+FROM estudio.AUTOS A,
 estudio.Concesionario as C
 where A.idConcesionario = C.idConcesionario;
 
