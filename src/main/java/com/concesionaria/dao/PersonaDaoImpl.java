@@ -16,8 +16,6 @@ import javax.persistence.Persistence;
  */
 public class PersonaDaoImpl implements PersonaDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
-
     private static PersonaDaoImpl instance = new PersonaDaoImpl();
 
     public PersonaDaoImpl() {
@@ -32,7 +30,7 @@ public class PersonaDaoImpl implements PersonaDao {
         System.out.println("llega a guardar de AutoDaoImpl");
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.persist(persona);     //lo graba en la sesion de Hibernate
 
@@ -54,7 +52,7 @@ public class PersonaDaoImpl implements PersonaDao {
         EntityManager em = null;
         Persona persona = new Persona();
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             persona = em.find(Persona.class, id);
         } catch (Exception e) {
@@ -70,7 +68,7 @@ public class PersonaDaoImpl implements PersonaDao {
         System.out.println("llega a modificar de AutoDaoImpl");
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             em.merge(persona); //lo 
 
@@ -92,7 +90,7 @@ public class PersonaDaoImpl implements PersonaDao {
 
         EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             Persona persona = em.find(Persona.class, idPersona);
             em.remove(persona); //lo elimina en la sesion de Hibernate 
