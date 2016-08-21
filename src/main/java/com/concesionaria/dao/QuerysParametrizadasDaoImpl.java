@@ -18,12 +18,10 @@ import javax.persistence.Query;
  */
 public class QuerysParametrizadasDaoImpl implements QuerysParametrizadasDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
-
     @Override
     public List obtenerAutosSegunCriterio(String marca, String modelo) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = GetEntityManagerFactory.getInstance().createEntityManager();
         List<Auto> us = null;
         try {
             em.getTransaction().begin();
@@ -54,7 +52,7 @@ public class QuerysParametrizadasDaoImpl implements QuerysParametrizadasDao {
     @Override
     public List obtenerAutosConPaginacion(int registroInicial, int cantidad) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = GetEntityManagerFactory.getInstance().createEntityManager();
         List<Auto> us = null;
         try {
             int tamanioPagina = cantidad;

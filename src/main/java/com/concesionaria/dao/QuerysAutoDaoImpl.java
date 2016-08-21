@@ -20,8 +20,6 @@ import javax.persistence.Query;
  */
 public class QuerysAutoDaoImpl implements QuerysAutoDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase2PU");
-
     @Override
     public List<Auto> getAutosOrdenadosFechaDesc() {
 
@@ -29,7 +27,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String consultaAutosOrdenadosFechaDes = "from Auto a order by a.fechaVenta desc";
 
@@ -57,7 +55,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String autosFechabetween = "from Auto a where fechaVenta between :desde and :hasta ";
             Query query = em.createQuery(autosFechabetween);
@@ -86,7 +84,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String autosPorAnio = "from Auto a where anio like :anio";
             Query query = em.createQuery(autosPorAnio);
@@ -114,7 +112,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String autosPorLetra = "from Auto a where marca like :letra";
             Query query = em.createQuery(autosPorLetra);
@@ -144,7 +142,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List<Auto> listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String autosPorPrecioMayorA = "from Auto a where precio > :precio";
             Query query = em.createQuery(autosPorPrecioMayorA);
@@ -173,7 +171,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         Long cantidad = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
             String cantidadAutos = "select count(id) from Auto a";
@@ -202,7 +200,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         Long cantidad = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
             String selectCantidadMarcas = "select count (distinct a.marca) from Auto a";
@@ -231,7 +229,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         Auto auto = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
             String selectAutoMasCaro = "from Auto where precio = (select max(precio) from Auto)";
             Query query = em.createQuery(selectAutoMasCaro);
@@ -259,7 +257,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         Double promedio = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
             String selectPromedio = "select avg (precio) from Auto";
@@ -288,7 +286,7 @@ public class QuerysAutoDaoImpl implements QuerysAutoDao {
         List listaAutos = null;
 
         try {
-            em = emf.createEntityManager();
+            em = GetEntityManagerFactory.getInstance().createEntityManager();
             em.getTransaction().begin();
 
             String selectTotalPorMarca = "select new com.concesionaria.domain.AutoMarcaPrecioDto (a.marca, sum (a.precio)) from Auto a group by a.marca";
