@@ -78,7 +78,7 @@ public class ConcesionarioDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test2FindById() {
         Log.log(Level.INFO, "testFindById");
 
@@ -88,7 +88,7 @@ public class ConcesionarioDaoTest {
         Assert.assertEquals(nombre, concesionario.getNombre());
     }
 
-//    @Test
+    @Test
     public void test3GetAllConcesionario() {
 
         Log.info("testGetAllConcesionario");
@@ -103,7 +103,7 @@ public class ConcesionarioDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test4GetMaxId() {
 
         ConcesionarioDao concesionarioDao = DaoFactory.getConcesionarioDao();
@@ -114,7 +114,7 @@ public class ConcesionarioDaoTest {
         Assert.assertNotNull(maxId);
     }
 
-//    @Test
+    @Test
     public void test5AgregarAutos() {
 
         String modelo = "Honda";
@@ -146,7 +146,7 @@ public class ConcesionarioDaoTest {
         ConcesionarioService.agregarAutos(getIdInsertado(), autos);
     }
 
-//    @Test
+    @Test
     public void test6Modificar() {
         Log.info("testModificar");
 
@@ -165,14 +165,14 @@ public class ConcesionarioDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test7informarAutos() {
         Log.log(Level.INFO, "test informarAutos");
         Long idConcesionario = getIdInsertado();
         ConcesionarioService.informarAutos(idConcesionario);
     }
 
-//    @Test
+    @Test
     public void test8InformarSueldos() {
         Log.log(Level.INFO, "test informarAutos");
         ConcesionarioService.informarSueldosPorConcesionario();
@@ -190,7 +190,7 @@ public class ConcesionarioDaoTest {
 
     }
 
-//    @Test
+    @Test
     public void test9EliminarConcesionarioYSusAutos() {
         Log.log(Level.INFO, "testEliminarConcesionarioYSusAutos");
         Concesionario concesionario;
@@ -204,7 +204,8 @@ public class ConcesionarioDaoTest {
     }
     
     
-    @Test
+    //Este test se deja comentado porque para probarlo es necesario agregar dos concesionarios vendedores y autos.
+//    @Test
     public void test9QuiebraConcesionario() {
         Log.log(Level.INFO, "test9QuiebraConcesionario");
         Long idConcesionarioQuiebra = 25l;
